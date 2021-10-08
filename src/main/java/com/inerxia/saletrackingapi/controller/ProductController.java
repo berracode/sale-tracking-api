@@ -18,7 +18,7 @@ public class ProductController {
     private ProductFacade productFacade;
 
     public ProductController(ProductFacade productFacade){
-        this.productFacade =productFacade;
+        this.productFacade=productFacade;
     }
 
     @GetMapping("/get-all")
