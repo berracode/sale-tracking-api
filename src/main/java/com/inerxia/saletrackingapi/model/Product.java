@@ -3,10 +3,9 @@ package com.inerxia.saletrackingapi.model;
 import lombok.Data;
 
 import javax.persistence.*;
-
+@Data
 @Entity
 @Table(name = "product")
-@Data
 public class Product {
 
     @Id

@@ -1,5 +1,6 @@
 package com.inerxia.saletrackingapi.controller;
 
+import com.inerxia.saletrackingapi.facade.ProductFacade;
 import com.inerxia.saletrackingapi.facade.dto.ProductDto;
 import com.inerxia.saletrackingapi.model.Product;
 import com.inerxia.saletrackingapi.service.ProductService;
@@ -14,15 +15,17 @@ import java.util.List;
 @RestController
 @RequestMapping("/product")
 public class ProductController {
-    private ProductService productService;
+    private ProductFacade productFacade;
 
-    public ProductController(ProductService productService){
-        this.productService =productService;
+    public ProductController(ProductFacade productFacade){
+        this.productFacade =productFacade;
     }
 
     @GetMapping("/get-all")
-    public ResponseEntity<StandardResponse<List<Product>>> findAll(){
-        List<Product> productDtoList = productService.findAll();
+    public ResponseEntity<StandardResponse<List<ProductDto>>> findAll(){
+        ProductDto productDto = new ProductDto();
+
+        List<ProductDto> productDtoList = productFacade.findAll();
         return ResponseEntity.ok(new StandardResponse<>(
                 StandardResponse.EstadoStandardResponse.OK,
                 productDtoList));
