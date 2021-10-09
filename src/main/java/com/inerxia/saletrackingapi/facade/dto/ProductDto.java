@@ -1,18 +1,21 @@
 package com.inerxia.saletrackingapi.facade.dto;
 
 
-import com.fasterxml.jackson.annotation.JsonAlias;
 import lombok.Data;
+import javax.validation.constraints.NotNull;
 
 @Data
 public class ProductDto {
 
-    @JsonAlias("id")
     private Integer id;
-    @JsonAlias("code")
+
+    @NotNull
     private String code;
-    @JsonAlias("stock")
+    @NotNull
     private double stock;
+    @NotNull
+    private String name;
+
 
     public Integer getId() {
         return id;
@@ -36,5 +39,13 @@ public class ProductDto {
 
     public void setStock(double stock) {
         this.stock = stock;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

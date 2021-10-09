@@ -18,6 +18,10 @@ public class Product {
     @Column(name = "stock")
     private double stock;
 
+    @Column(name = "name")
+    private String name;
+
+
     public Integer getId() {
         return id;
     }
@@ -40,5 +44,13 @@ public class Product {
 
     public void setStock(double stock) {
         this.stock = stock;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }
