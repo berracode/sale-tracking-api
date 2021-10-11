@@ -1,15 +1,23 @@
 package com.inerxia.saletrackingapi.exception;
 
+import com.google.common.base.Joiner;
 import com.inerxia.saletrackingapi.util.StandardResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
+import java.util.Map;
 
 @ControllerAdvice
 public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionHandler {
@@ -33,6 +41,51 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
                 ex.getMessage()),
                 HttpStatus.BAD_REQUEST);
     }
+
+    @Override
+    protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
+            Map<String, String> errors = new HashMap<>();
+            ex.getBindingResult().getAllErrors().forEach((error) -> {
+                String fieldName = ((FieldError) error).getField();
+                String errorMessage = error.getDefaultMessage();
+                errors.put(fieldName, errorMessage);
+            });
+            String erorresMapeadosString = Joiner.on(",").withKeyValueSeparator("=").join(errors);
+
+            return new ResponseEntity<Object>(
+                    new StandardResponse(StandardResponse.EstadoStandardResponse.ERROR, erorresMapeadosString),
+                    HttpStatus.BAD_REQUEST);
+    }
+
+    @Override
+    protected ResponseEntity<Object> handleMissingServletRequestParameter(
+            MissingServletRequestParameterException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
+
+        return new ResponseEntity<>(
+                new StandardResponse(StandardResponse.EstadoStandardResponse.ERROR, ex.getMessage()),
+                HttpStatus.BAD_REQUEST);
+    }
+
+
+    /*
+        Solución al error de no captura de la excepción ConstraintViolation
+        ¿Por qué era un error? Porqué el metodo findAll de la clase ReporteContratoController
+        recibe dos parametros (pagina y limite), de los cuales se valida que no vengan nullos o vacios
+        por tanto si vienen nullos lanza una excepción, ConstraintViolationException, está excepción es
+        dificil de capturarla con la clase controladora de excpciones (está clase).
+        La solución entonces es la respuesta en el link de abajo.
+
+     * https://stackoverflow.com/questions/45070642/springboot-doesnt-handle-org-hibernate-exception-constraintviolationexception/61581127#61581127
+     */
+    @ExceptionHandler(javax.validation.ConstraintViolationException.class)
+    public final ResponseEntity<StandardResponse> handleConstraintViolationException(Exception ex) {
+        logger.error(ex.toString());
+
+        return new ResponseEntity<>(
+                new StandardResponse(StandardResponse.EstadoStandardResponse.ERROR, ex.getMessage()),
+                HttpStatus.BAD_REQUEST);
+    }
+
 
 
 }

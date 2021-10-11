@@ -1,33 +1,32 @@
 package com.inerxia.saletrackingapi.facade.dto;
 
-import javax.validation.Valid;
+
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 public class ProductWrapperDto {
 
-    @NotNull
-    @NotBlank
+    @NotBlank(message = "No puede ser vacío el name")
     private String name;
-    @NotNull
-    @NotBlank
+
+    @NotBlank(message = "No puede ser vacío el code")
     private String code;
-    @NotNull
-    @NotBlank
+
+    @NotNull(message = "No puede ser vacío el stock")
     private double stock;
 
     @NotNull
-    @NotBlank
     private Integer providerId;
+
     @NotNull
-    @NotBlank
     private double netPrice;
+
     @NotNull
-    @NotBlank
     private double sellPrice;
+
     @NotNull
-    @NotBlank
     private LocalDateTime timestamp;
 
     public String getName() {
@@ -45,7 +44,6 @@ public class ProductWrapperDto {
     public void setCode(String code) {
         this.code = code;
     }
-
     public double getStock() {
         return stock;
     }
