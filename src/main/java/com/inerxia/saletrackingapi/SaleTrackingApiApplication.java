@@ -15,17 +15,5 @@ public class SaleTrackingApiApplication {
         SpringApplication.run(SaleTrackingApiApplication.class, args);
     }
 
-    @Bean
-    public WebMvcConfigurer corsConfigurer() {
-        return new WebMvcConfigurer() {
-            @Override
-            public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/api/**")
-                 .allowedOrigins("http://localhost:4200")
-                 .allowedMethods("GET","POST","PUT")
-                 .maxAge(3600);
-            }
 
-        };
-    }
 }
