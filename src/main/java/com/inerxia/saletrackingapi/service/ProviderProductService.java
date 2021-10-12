@@ -1,7 +1,6 @@
 package com.inerxia.saletrackingapi.service;
 
 import com.inerxia.saletrackingapi.exception.DataNotFoundException;
-import com.inerxia.saletrackingapi.facade.dto.ProviderProductsDto;
 import com.inerxia.saletrackingapi.model.ProviderProductRepository;
 import com.inerxia.saletrackingapi.model.ProviderProducts;
 import org.springframework.stereotype.Service;

@@ -1,4 +1,4 @@
-package com.inerxia.saletrackingapi.facade.dto;
+package com.inerxia.saletrackingapi.dto;
 
 
 

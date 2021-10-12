@@ -1,9 +1,7 @@
 package com.inerxia.saletrackingapi.facade;
 
-import com.inerxia.saletrackingapi.facade.dto.ProductDto;
-import com.inerxia.saletrackingapi.facade.dto.ProductWrapperDto;
-import com.inerxia.saletrackingapi.facade.dto.ProviderDto;
-import com.inerxia.saletrackingapi.facade.dto.ProviderProductsDto;
+import com.inerxia.saletrackingapi.dto.ProductDto;
+import com.inerxia.saletrackingapi.dto.ProductWrapperDto;
 import com.inerxia.saletrackingapi.facade.mapper.ProductMapper;
 import com.inerxia.saletrackingapi.model.Product;
 import com.inerxia.saletrackingapi.model.Provider;
@@ -12,7 +10,6 @@ import com.inerxia.saletrackingapi.service.ProductService;
 import com.inerxia.saletrackingapi.service.ProviderProductService;
 import com.inerxia.saletrackingapi.service.ProviderService;
 import org.hibernate.ObjectNotFoundException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

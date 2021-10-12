@@ -1,8 +1,7 @@
 package com.inerxia.saletrackingapi.controller;
 
-import com.inerxia.saletrackingapi.facade.ProductFacade;
-import com.inerxia.saletrackingapi.dto.ProductDto;
-import com.inerxia.saletrackingapi.dto.ProductWrapperDto;
+import com.inerxia.saletrackingapi.dto.ProviderDto;
+import com.inerxia.saletrackingapi.facade.ProviderFacade;
 import com.inerxia.saletrackingapi.util.StandardResponse;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -14,42 +13,42 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/product")
-public class ProductController {
-    private ProductFacade productFacade;
+@RequestMapping("/provider")
+public class ProviderController {
+    private ProviderFacade providerFacade;
 
-    public ProductController(ProductFacade productFacade){
-        this.productFacade=productFacade;
+    public ProviderController(ProviderFacade providerFacade){
+        this.providerFacade=providerFacade;
     }
 
     @GetMapping("/get-all")
-    @ApiOperation(value = "Obtener todos", response = ProductDto.class)
+    @ApiOperation(value = "get all providers", response = ProviderDto.class)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "La petición fue procesada con éxito"),
             @ApiResponse(code = 400, message = "La petición es inválida"),
             @ApiResponse(code = 500, message = "Error del servidor al procesar la respuesta"),
     })
-    public ResponseEntity<StandardResponse<List<ProductDto>>> findAll(){
+    public ResponseEntity<StandardResponse<List<ProviderDto>>> findAll(){
 
-        List<ProductDto> productDtoList = productFacade.findAll();
+        List<ProviderDto> productDtoList = providerFacade.findAll();
         return ResponseEntity.ok(new StandardResponse<>(
                 StandardResponse.EstadoStandardResponse.OK,
                 productDtoList));
     }
 
     @PostMapping
-    @ApiOperation(value = "Crea un producto", response = ProductWrapperDto.class)
+    @ApiOperation(value = "Save a provider", response = ProviderDto.class)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "La petición fue procesada con éxito"),
             @ApiResponse(code = 400, message = "La petición es inválida"),
             @ApiResponse(code = 500, message = "Error del servidor al procesar la respuesta"),
     })
-    public ResponseEntity<StandardResponse<ProductWrapperDto>> createProduct(
-            @Valid @RequestBody ProductWrapperDto productWrapperDto){
-        ProductWrapperDto productDto1 = productFacade.createProduct(productWrapperDto);
+    public ResponseEntity<StandardResponse<ProviderDto>> createProduct(
+            @Valid @RequestBody ProviderDto providerDto){
+        ProviderDto providerDto1 = providerFacade.createProvider(providerDto);
         return ResponseEntity.ok(new StandardResponse<>(
                 StandardResponse.EstadoStandardResponse.OK,
-                "product.create.ok",
-                productDto1));
+                "provider.create.ok",
+                providerDto1));
     }
 }

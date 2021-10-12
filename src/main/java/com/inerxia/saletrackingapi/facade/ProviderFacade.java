@@ -1,11 +1,8 @@
 package com.inerxia.saletrackingapi.facade;
 
-import com.inerxia.saletrackingapi.facade.dto.ProductDto;
-import com.inerxia.saletrackingapi.facade.dto.ProductWrapperDto;
-import com.inerxia.saletrackingapi.facade.dto.ProviderDto;
-import com.inerxia.saletrackingapi.facade.mapper.ProductMapper;
+
+import com.inerxia.saletrackingapi.dto.ProviderDto;
 import com.inerxia.saletrackingapi.facade.mapper.ProviderMapper;
-import com.inerxia.saletrackingapi.service.ProductService;
 import com.inerxia.saletrackingapi.service.ProviderService;
 import org.hibernate.ObjectNotFoundException;
 import org.springframework.stereotype.Service;
@@ -32,8 +29,14 @@ public class ProviderFacade {
         return providerMapper.toDto(providerService.findById(id));
     }
 
-    public List<ProductDto> findAll(){
-        return null;//providerMapper.toDto(providerService.findAll());
+    public List<ProviderDto> findAll(){
+        return providerMapper.toDto(providerService.findAll());
+    }
+
+    public ProviderDto createProvider(ProviderDto providerDto){
+
+
+        return providerMapper.toDto(providerService.createProvider(providerMapper.toEntity(providerDto)));
     }
 
 

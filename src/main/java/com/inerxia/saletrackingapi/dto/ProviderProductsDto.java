@@ -1,7 +1,4 @@
-package com.inerxia.saletrackingapi.facade.dto;
-
-import com.inerxia.saletrackingapi.model.Product;
-import com.inerxia.saletrackingapi.model.Provider;
+package com.inerxia.saletrackingapi.dto;
 
 import java.time.LocalDateTime;
 

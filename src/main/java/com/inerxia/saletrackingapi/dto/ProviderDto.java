@@ -1,9 +1,14 @@
-package com.inerxia.saletrackingapi.facade.dto;
+package com.inerxia.saletrackingapi.dto;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 public class ProviderDto {
 
+    @NotNull
     private Integer id;
 
+    @NotBlank
     private String nit;
 
     private String name;
