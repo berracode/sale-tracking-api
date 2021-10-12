@@ -34,9 +34,11 @@ public class ProviderFacade {
     }
 
     public ProviderDto createProvider(ProviderDto providerDto){
-
-
         return providerMapper.toDto(providerService.createProvider(providerMapper.toEntity(providerDto)));
+    }
+
+    public ProviderDto editProvider(ProviderDto providerDto){
+        return providerMapper.toDto(providerService.editProvider(providerMapper.toEntity(providerDto)));
     }
 
 

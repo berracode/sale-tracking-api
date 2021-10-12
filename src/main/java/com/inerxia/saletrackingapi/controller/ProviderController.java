@@ -21,6 +21,20 @@ public class ProviderController {
         this.providerFacade=providerFacade;
     }
 
+    @GetMapping("/get-by-id/{id}")
+    @ApiOperation(value = "Get providers by id", response = ProviderDto.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "La petición fue procesada con éxito"),
+            @ApiResponse(code = 400, message = "La petición es inválida"),
+            @ApiResponse(code = 500, message = "Error del servidor al procesar la respuesta"),
+    })
+    public ResponseEntity<StandardResponse<ProviderDto>> findById(@PathVariable Integer id){
+        ProviderDto providerDto = providerFacade.findById(id);
+        return ResponseEntity.ok(new StandardResponse<>(
+                StandardResponse.EstadoStandardResponse.OK,
+                providerDto));
+    }
+
     @GetMapping("/get-all")
     @ApiOperation(value = "get all providers", response = ProviderDto.class)
     @ApiResponses(value = {
@@ -51,4 +65,21 @@ public class ProviderController {
                 "provider.create.ok",
                 providerDto1));
     }
+
+    @PutMapping
+    @ApiOperation(value = "Edit provider", response = ProviderDto.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "La petición fue procesada con éxito"),
+            @ApiResponse(code = 400, message = "La petición es inválida"),
+            @ApiResponse(code = 500, message = "Error del servidor al procesar la respuesta"),
+    })
+    public ResponseEntity<StandardResponse<ProviderDto>> editarServicio(
+            @Valid @RequestBody ProviderDto providerDto){
+        ProviderDto providerDto1 = providerFacade.editProvider(providerDto);
+        return ResponseEntity.ok(new StandardResponse<>(
+                StandardResponse.EstadoStandardResponse.OK,
+                "provider.editar.exito",
+                providerDto1));
+    }
+
 }

@@ -2,6 +2,7 @@ package com.inerxia.saletrackingapi.service;
 
 import com.inerxia.saletrackingapi.exception.DataConstraintViolationException;
 import com.inerxia.saletrackingapi.exception.DataNotFoundException;
+import com.inerxia.saletrackingapi.exception.ObjectNoEncontradoException;
 import com.inerxia.saletrackingapi.model.Product;
 import com.inerxia.saletrackingapi.model.ProductRepository;
 import com.inerxia.saletrackingapi.model.Provider;
@@ -54,6 +55,22 @@ public class ProviderService {
         }
         return providerRepository.findById(id)
                 .orElseThrow(()-> new DataNotFoundException("exception.data_not_found.provider"));
+    }
+
+    public Provider editProvider(Provider provider){
+        if(Objects.isNull(provider.getId())){
+            throw new ObjectNoEncontradoException("exception.objeto_no_encontrado");
+        }
+
+        Provider providerTx = providerRepository.findById(provider.getId())
+                .orElseThrow(()-> new DataNotFoundException("exception.data_not_found.provider"));
+
+        providerTx.setName(provider.getName());
+        providerTx.setAddress(provider.getAddress());
+        providerTx.setPhone(provider.getPhone());
+        providerTx.setNit(provider.getNit());
+
+        return providerTx;
     }
 
 }
