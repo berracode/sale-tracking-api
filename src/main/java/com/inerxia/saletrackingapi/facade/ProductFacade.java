@@ -61,10 +61,16 @@ public class ProductFacade {
         providerProducts.setSellPrice(productWrapperDto.getSellPrice());
         providerProducts.setTimestamp(productWrapperDto.getTimestamp());
 
-        providerProducts = providerProductService.createProviderProducts(providerProducts);
+       providerProducts = providerProductService.createProviderProducts(providerProducts);
 
 
         return productWrapperDto;
+
+    }
+
+    public List<ProductWrapperDto> findByName(String name){
+
+        return productService.findByName(name);
 
     }
 

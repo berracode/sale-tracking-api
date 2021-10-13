@@ -52,4 +52,20 @@ public class ProductController {
                 "product.create.ok",
                 productDto1));
     }
+
+    @GetMapping("/get-by-name/{name}")
+    @ApiOperation(value = "Find products by name", response = List.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "La petición fue procesada con éxito"),
+            @ApiResponse(code = 400, message = "La petición es inválida"),
+            @ApiResponse(code = 500, message = "Error del servidor al procesar la respuesta"),
+    })
+    public ResponseEntity<StandardResponse<List<ProductWrapperDto>>> findByName(@PathVariable(value = "") String name){
+        System.out.println("PATH: "+name);
+
+        List<ProductWrapperDto> productWrapperDtos = productFacade.findByName(name);
+        return ResponseEntity.ok(new StandardResponse<>(
+                StandardResponse.EstadoStandardResponse.OK,
+                productWrapperDtos));
+    }
 }
