@@ -2,7 +2,7 @@ package com.inerxia.saletrackingapi.facade;
 
 import com.inerxia.saletrackingapi.dto.ProductDto;
 import com.inerxia.saletrackingapi.dto.ProductWrapperDto;
-import com.inerxia.saletrackingapi.facade.mapper.ProductMapper;
+import com.inerxia.saletrackingapi.mapper.ProductMapper;
 import com.inerxia.saletrackingapi.model.Product;
 import com.inerxia.saletrackingapi.model.Provider;
 import com.inerxia.saletrackingapi.model.ProviderProducts;

@@ -1,4 +1,4 @@
-package com.inerxia.saletrackingapi.facade.mapper;
+package com.inerxia.saletrackingapi.mapper;
 
 import com.inerxia.saletrackingapi.dto.UserDto;
 import com.inerxia.saletrackingapi.model.User;

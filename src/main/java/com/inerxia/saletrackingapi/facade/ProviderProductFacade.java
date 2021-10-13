@@ -1,7 +1,7 @@
 package com.inerxia.saletrackingapi.facade;
 
 import com.inerxia.saletrackingapi.dto.ProviderProductsDto;
-import com.inerxia.saletrackingapi.facade.mapper.ProviderProductMapper;
+import com.inerxia.saletrackingapi.mapper.ProviderProductMapper;
 import com.inerxia.saletrackingapi.service.ProviderProductService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

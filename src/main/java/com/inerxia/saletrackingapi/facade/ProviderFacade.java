@@ -2,7 +2,7 @@ package com.inerxia.saletrackingapi.facade;
 
 
 import com.inerxia.saletrackingapi.dto.ProviderDto;
-import com.inerxia.saletrackingapi.facade.mapper.ProviderMapper;
+import com.inerxia.saletrackingapi.mapper.ProviderMapper;
 import com.inerxia.saletrackingapi.service.ProviderService;
 import org.hibernate.ObjectNotFoundException;
 import org.springframework.stereotype.Service;

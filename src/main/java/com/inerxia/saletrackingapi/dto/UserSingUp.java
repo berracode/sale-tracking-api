@@ -1,8 +1,6 @@
 package com.inerxia.saletrackingapi.dto;
 
-import lombok.Data;
 
-@Data
 public class UserSingUp {
 
     private Integer id;

@@ -2,7 +2,7 @@ package com.inerxia.saletrackingapi.facade;
 
 import com.inerxia.saletrackingapi.config.jwt2.JwtGenerarToken;
 import com.inerxia.saletrackingapi.dto.UserDto;
-import com.inerxia.saletrackingapi.facade.mapper.UserMapper;
+import com.inerxia.saletrackingapi.mapper.UserMapper;
 import com.inerxia.saletrackingapi.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;

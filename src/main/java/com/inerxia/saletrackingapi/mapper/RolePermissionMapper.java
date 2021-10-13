@@ -1,4 +1,4 @@
-package com.inerxia.saletrackingapi.facade.mapper;
+package com.inerxia.saletrackingapi.mapper;
 
 import com.inerxia.saletrackingapi.dto.RolePermissionDto;
 import com.inerxia.saletrackingapi.model.RolePermission;

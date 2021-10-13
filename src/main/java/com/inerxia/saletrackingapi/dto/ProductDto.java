@@ -1,10 +1,9 @@
 package com.inerxia.saletrackingapi.dto;
 
 
-import lombok.Data;
 import javax.validation.constraints.NotNull;
 
-@Data
+
 public class ProductDto {
 
     private Integer id;

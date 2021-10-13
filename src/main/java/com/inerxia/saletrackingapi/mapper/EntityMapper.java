@@ -1,4 +1,4 @@
-package com.inerxia.saletrackingapi.facade.mapper;
+package com.inerxia.saletrackingapi.mapper;
 
 import java.util.List;
 import java.util.Set;
