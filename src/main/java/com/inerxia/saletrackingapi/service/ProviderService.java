@@ -3,8 +3,6 @@ package com.inerxia.saletrackingapi.service;
 import com.inerxia.saletrackingapi.exception.DataConstraintViolationException;
 import com.inerxia.saletrackingapi.exception.DataNotFoundException;
 import com.inerxia.saletrackingapi.exception.ObjectNoEncontradoException;
-import com.inerxia.saletrackingapi.model.Product;
-import com.inerxia.saletrackingapi.model.ProductRepository;
 import com.inerxia.saletrackingapi.model.Provider;
 import com.inerxia.saletrackingapi.model.ProviderRepository;
 import org.hibernate.ObjectNotFoundException;
