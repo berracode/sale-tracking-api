@@ -16,9 +16,7 @@ public class Permission {
 
     private String description;
 
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name="permission_id")
-    private Set<RolePermission> rolePermissions;
+
 
     public Integer getId() {
         return id;
@@ -44,11 +42,5 @@ public class Permission {
         this.description = description;
     }
 
-    public Set<RolePermission> getRolePermissions() {
-        return rolePermissions;
-    }
 
-    public void setRolePermissions(Set<RolePermission> rolePermissions) {
-        this.rolePermissions = rolePermissions;
-    }
 }

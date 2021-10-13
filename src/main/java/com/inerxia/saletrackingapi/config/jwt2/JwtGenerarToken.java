@@ -23,6 +23,7 @@ public class JwtGenerarToken {
 	
 	public String generarToken(Authentication authentication) {
 		UserDetails user = (UserDetails) authentication.getPrincipal();
+		System.out.println("user details: "+user.getUsername());
 		Date ahora = new Date();
 		Date expiro = new Date(ahora.getTime() + Long.parseLong(jwtExpirationTime.trim()));
 		return Jwts.builder().setSubject(user.getUsername()).setIssuedAt(new Date()).setExpiration(expiro)

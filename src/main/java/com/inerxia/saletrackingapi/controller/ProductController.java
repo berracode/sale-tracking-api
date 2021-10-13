@@ -33,7 +33,7 @@ public class ProductController {
 
         List<ProductDto> productDtoList = productFacade.findAll();
         return ResponseEntity.ok(new StandardResponse<>(
-                StandardResponse.EstadoStandardResponse.OK,
+                StandardResponse.StatusStandardResponse.OK,
                 productDtoList));
     }
 
@@ -48,7 +48,7 @@ public class ProductController {
             @Valid @RequestBody ProductWrapperDto productWrapperDto){
         ProductWrapperDto productDto1 = productFacade.createProduct(productWrapperDto);
         return ResponseEntity.ok(new StandardResponse<>(
-                StandardResponse.EstadoStandardResponse.OK,
+                StandardResponse.StatusStandardResponse.OK,
                 "product.create.ok",
                 productDto1));
     }
@@ -61,11 +61,10 @@ public class ProductController {
             @ApiResponse(code = 500, message = "Error del servidor al procesar la respuesta"),
     })
     public ResponseEntity<StandardResponse<List<ProductWrapperDto>>> findByName(@PathVariable(value = "") String name){
-        System.out.println("PATH: "+name);
 
         List<ProductWrapperDto> productWrapperDtos = productFacade.findByName(name);
         return ResponseEntity.ok(new StandardResponse<>(
-                StandardResponse.EstadoStandardResponse.OK,
+                StandardResponse.StatusStandardResponse.OK,
                 productWrapperDtos));
     }
 }
