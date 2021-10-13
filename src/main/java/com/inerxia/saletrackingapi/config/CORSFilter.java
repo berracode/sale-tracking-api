@@ -30,11 +30,11 @@ public class CORSFilter extends OncePerRequestFilter {
 
 
 		System.out.println("validando cors");
-		response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT");
+		response.addHeader("Access-Control-Allow-Origin", "*");
+		response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
 		response.setHeader("Access-Control-Max-Age", "3600");
 		response.setHeader("Access-Control-Allow-Headers",
 				"Authorization, content-type, xsrf-token, Access-Control-Allow-Headers");
-		response.addHeader("Access-Control-Expose-Headers", "xsrf-token");
 
 		if ("OPTIONS".equals(request.getMethod())) {
 			response.setStatus(HttpServletResponse.SC_OK);
