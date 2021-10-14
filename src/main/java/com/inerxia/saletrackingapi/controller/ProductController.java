@@ -54,6 +54,22 @@ public class ProductController {
                 productDto1));
     }
 
+    @PutMapping
+    @ApiOperation(value = "Edit product", response = ProductWrapperDto.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "La petición fue procesada con éxito"),
+            @ApiResponse(code = 400, message = "La petición es inválida"),
+            @ApiResponse(code = 500, message = "Error del servidor al procesar la respuesta"),
+    })
+    public ResponseEntity<StandardResponse<ProductWrapperDto>> editProduct(
+            @Valid @RequestBody ProductWrapperDto productWrapperDto){
+        ProductWrapperDto productDto1 = productFacade.editProduct(productWrapperDto);
+        return ResponseEntity.ok(new StandardResponse<>(
+                StandardResponse.StatusStandardResponse.OK,
+                "product.create.ok",
+                productDto1));
+    }
+
     @GetMapping({"/get-by-name"})
     @ApiOperation(value = "Find products by name", response = List.class)
     @ApiResponses(value = {

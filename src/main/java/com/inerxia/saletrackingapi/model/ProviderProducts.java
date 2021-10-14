@@ -17,7 +17,7 @@ public class ProviderProducts {
     @Column(name = "product_id")
     private Integer productId;
 
-    @Column(name = " net_price")
+    @Column(name = "net_price")
     private double netPrice;
 
     @Column(name = "sell_price")

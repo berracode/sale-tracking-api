@@ -68,6 +68,33 @@ public class ProductFacade {
 
     }
 
+    public ProductWrapperDto editProduct(ProductWrapperDto productWrapperDto){
+
+        Provider providerEdit = providerService.findById(productWrapperDto.getProviderId());
+        Product productEdit = productService.findById(productWrapperDto.getId());
+
+        productEdit.setCode(productWrapperDto.getCode());
+        productEdit.setName(productWrapperDto.getName());
+        productEdit.setStock(productWrapperDto.getStock());
+        //TODO enviar a actualizar el productEdit
+        productEdit=productService.editProduct(productEdit);
+
+
+        ProviderProducts providerProducts = new ProviderProducts();
+        providerProducts.setProductId(productEdit.getId());
+        providerProducts.setProviderId(providerEdit.getId());
+
+        providerProducts.setNetPrice(productWrapperDto.getNetPrice());
+        providerProducts.setSellPrice(productWrapperDto.getSellPrice());
+        providerProducts.setTimestamp(productWrapperDto.getTimestamp());
+
+        providerProducts = providerProductService.editProviderProducts(providerProducts);
+
+
+        return productWrapperDto;
+
+    }
+
     public List<ProductWrapperDto> findByName(String name){
 
         return productService.findByName(name);
