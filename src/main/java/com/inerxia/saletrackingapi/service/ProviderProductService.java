@@ -26,7 +26,7 @@ public class ProviderProductService {
         if(Objects.nonNull(providerProducts.getId())){
             Optional<ProviderProducts> servicioOptional = providerProductRepository.findById(providerProducts.getId());
             if(servicioOptional.isPresent()){
-                throw new DataNotFoundException("exception.data_duplicated.servicio");
+                throw new DataNotFoundException("exception.data_duplicated.providerProducts");
             }
         }
         return providerProductRepository.save(providerProducts);
@@ -38,8 +38,10 @@ public class ProviderProductService {
         }
 
         ProviderProducts providerProductsTx = providerProductRepository
-                .findByProviderIdAndProductId(providerProducts.getProviderId(),providerProducts.getProductId())
-                .orElseThrow(()-> new DataNotFoundException("exception.data_not_found.empleado_servicio"));
+                .findByProviderIdAndProductId(providerProducts.getProviderId(),providerProducts.getProductId());
+        if(Objects.isNull(providerProductsTx)){
+            providerProductsTx = this.createProviderProducts(providerProducts);
+        }
 
         try{
             providerProductsTx.setProviderId(providerProducts.getProviderId());

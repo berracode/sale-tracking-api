@@ -1,5 +1,6 @@
 package com.inerxia.saletrackingapi.service;
 
+import com.inerxia.saletrackingapi.dto.ProductWrapperDto;
 import com.inerxia.saletrackingapi.exception.DataConstraintViolationException;
 import com.inerxia.saletrackingapi.exception.DataNotFoundException;
 import com.inerxia.saletrackingapi.exception.ObjectNoEncontradoException;
@@ -53,6 +54,15 @@ public class ProviderService {
         }
         return providerRepository.findById(id)
                 .orElseThrow(()-> new DataNotFoundException("exception.data_not_found.provider"));
+    }
+
+    public List<Provider> findByName(String name){
+        if(Objects.isNull(name)){
+            throw new ObjectNoEncontradoException("exception.objeto_no_encontrado");
+        }
+        List<Provider> providerList = providerRepository.findByName(name);
+
+        return providerList;
     }
 
     public Provider editProvider(Provider provider){

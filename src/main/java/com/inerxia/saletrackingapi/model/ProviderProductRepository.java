@@ -6,7 +6,7 @@ import java.util.Optional;
 
 public interface ProviderProductRepository extends JpaRepository<ProviderProducts, Integer> {
 
-    Optional<ProviderProducts> findByProviderIdAndProductId(Integer providerId, Integer productId);
+    ProviderProducts findByProviderIdAndProductId(Integer providerId, Integer productId);
 
 
 
