@@ -5,7 +5,6 @@ import com.inerxia.saletrackingapi.exception.DataNotFoundException;
 import com.inerxia.saletrackingapi.exception.ObjectNoEncontradoException;
 import com.inerxia.saletrackingapi.model.InvoiceProducts;
 import com.inerxia.saletrackingapi.model.InvoiceProductsRepository;
-import com.inerxia.saletrackingapi.model.ProviderProducts;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,8 +24,8 @@ public class InvoiceProductsService {
 
     public InvoiceProducts createInvoiceProducts(InvoiceProducts invoiceProducts){
         if(Objects.nonNull(invoiceProducts.getId())){
-            Optional<InvoiceProducts> servicioOptional = invoiceProductsRepository.findById(invoiceProducts.getId());
-            if(servicioOptional.isPresent()){
+            Optional<InvoiceProducts> invoiceProductsOptional = invoiceProductsRepository.findById(invoiceProducts.getId());
+            if(invoiceProductsOptional.isPresent()){
                 throw new DataNotFoundException("exception.data_duplicated.invoiceProducts");
             }
         }
