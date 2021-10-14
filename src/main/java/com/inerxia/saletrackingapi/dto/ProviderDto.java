@@ -2,19 +2,21 @@ package com.inerxia.saletrackingapi.dto;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 public class ProviderDto {
 
-    @NotNull
     private Integer id;
 
     @NotBlank
+    @Pattern(regexp = "(^[0-9]+$)")
     private String nit;
 
     private String name;
 
     private String address;
 
+    @Pattern(regexp = "(^[0-9]+$)")
     private String phone;
 
     public Integer getId() {

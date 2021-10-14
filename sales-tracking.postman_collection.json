@@ -1,0 +1,358 @@
+{
+	"info": {
+		"_postman_id": "48c52b70-dc1c-422d-9ccf-0e2c4719516b",
+		"name": "sales-tracking",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "product",
+			"item": [
+				{
+					"name": "create product",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"code\": \"PRO002\",\r\n  \"name\": \"PRODUCTO EDITADO\",\r\n  \"netPrice\": 1200,\r\n  \"providerId\": 6,\r\n  \"sellPrice\": 1500,\r\n  \"stock\": 40,\r\n  \"timestamp\": \"2021-10-14T02:05:39.439Z\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:6969/api/sales-tracking/product",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "6969",
+							"path": [
+								"api",
+								"sales-tracking",
+								"product"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "find-all products",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:6969/api/sales-tracking/product/get-all",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "6969",
+							"path": [
+								"api",
+								"sales-tracking",
+								"product",
+								"get-all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "find-id product",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:6969/api/sales-tracking/product/get-all",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "6969",
+							"path": [
+								"api",
+								"sales-tracking",
+								"product",
+								"get-all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "find-by-name",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:6969/api/sales-tracking/product/get-by-name?name=w",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "6969",
+							"path": [
+								"api",
+								"sales-tracking",
+								"product",
+								"get-by-name"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "w"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "edit product",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"code\": \"PRO001\",\r\n  \"id\": 13,\r\n  \"name\": \"PRODUCTO 2 EDITADO\",\r\n  \"netPrice\": 1200,\r\n  \"providerId\": 1,\r\n  \"sellPrice\": 1500,\r\n  \"stock\": 40,\r\n  \"timestamp\": \"2021-10-14T02:05:39.439Z\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{SALES_BASE}}/product",
+							"host": [
+								"{{SALES_BASE}}"
+							],
+							"path": [
+								"product"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete product",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:6969/api/sales-tracking/product/delete?productId=9",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "6969",
+							"path": [
+								"api",
+								"sales-tracking",
+								"product",
+								"delete"
+							],
+							"query": [
+								{
+									"key": "productId",
+									"value": "9"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "user",
+			"item": [
+				{
+					"name": "Create user",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"armando.casas@antipatron.com\",\r\n  \"firstName\": \"armando\",\r\n  \"lastName\": \"casas\",\r\n  \"password\": \"12345678\",\r\n  \"roleId\": 2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:6969/api/sales-tracking/user/customer/singup",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "6969",
+							"path": [
+								"api",
+								"sales-tracking",
+								"user",
+								"customer",
+								"singup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Sing in",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "aaaa",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"armando.casas@antipatron.com\",\r\n    \"password\":\"12345678\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{SALES_BASE}}/user/singin",
+							"host": [
+								"{{SALES_BASE}}"
+							],
+							"path": [
+								"user",
+								"singin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "New Request",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJrZWxseS50b2JvbkBhbnRpcGF0cm9uLmNvbSIsImlhdCI6MTYzNDExNzY2OCwiZXhwIjoxNjM0MTE5NDY4fQ.r_PZOgATrZ-J_BR7GCG0hMJ-gdUZBVdqHjxjQcl9GgGAZUvYz-T0X94Hz-MbL_ypkshtjxeGi4ASzd_t9kU_0Q",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:6969/api/sales-tracking/user/test-security",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "6969",
+							"path": [
+								"api",
+								"sales-tracking",
+								"user",
+								"test-security"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "provider",
+			"item": [
+				{
+					"name": "create provider",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"address\": \"CALLE 180 # 50 - 34\",\r\n  \"name\": \"NACIONAL PROV\",\r\n  \"nit\": \"123456789\",\r\n  \"phone\": \"4555896\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{SALES_BASE}}/provider",
+							"host": [
+								"{{SALES_BASE}}"
+							],
+							"path": [
+								"provider"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "edit provider",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\r\n  \"address\": \"string\",\r\n  \"id\": 1,\r\n  \"name\": \"string\",\r\n  \"nit\": \"2222333\",\r\n  \"phone\": \"string\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{SALES_BASE}}/provider",
+							"host": [
+								"{{SALES_BASE}}"
+							],
+							"path": [
+								"provider"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "find-by-name",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{SALES_BASE}}/provider/get-by-name",
+							"host": [
+								"{{SALES_BASE}}"
+							],
+							"path": [
+								"provider",
+								"get-by-name"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
