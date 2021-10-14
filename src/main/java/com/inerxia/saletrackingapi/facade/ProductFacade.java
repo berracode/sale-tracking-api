@@ -101,5 +101,9 @@ public class ProductFacade {
 
     }
 
+    public void deleteProduct(Integer id){
+        productService.deleteProduct(id);
+    }
+
 
 }

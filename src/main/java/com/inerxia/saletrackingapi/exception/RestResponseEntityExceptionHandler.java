@@ -4,6 +4,7 @@ import com.google.common.base.Joiner;
 import com.inerxia.saletrackingapi.util.StandardResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.TypeMismatchException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,7 +32,7 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
         return new ResponseEntity<>(new StandardResponse(
                 StandardResponse.StatusStandardResponse.ERROR,
                 ex.getMessage()),
-                HttpStatus.NOT_FOUND);
+                HttpStatus.OK);
     }
 
     @ExceptionHandler(DataConstraintViolationException.class)
@@ -77,16 +78,34 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
     }
 
 
-    /*
-        Solución al error de no captura de la excepción ConstraintViolation
-        ¿Por qué era un error? Porqué el metodo findAll de la clase ReporteContratoController
-        recibe dos parametros (pagina y limite), de los cuales se valida que no vengan nullos o vacios
-        por tanto si vienen nullos lanza una excepción, ConstraintViolationException, está excepción es
-        dificil de capturarla con la clase controladora de excpciones (está clase).
-        La solución entonces es la respuesta en el link de abajo.
+    @ExceptionHandler({NumberFormatException.class})
+    public final ResponseEntity<StandardResponse> handleNumberFormatException(HttpServletRequest request, NumberFormatException ex){
+        logger.error(request.getContextPath(), ex.toString());
+        return new ResponseEntity<>(new StandardResponse(
+                StandardResponse.StatusStandardResponse.ERROR,
+                ex.getMessage()),
+                HttpStatus.BAD_REQUEST);
+    }
 
-     * https://stackoverflow.com/questions/45070642/springboot-doesnt-handle-org-hibernate-exception-constraintviolationexception/61581127#61581127
-     */
+    @Override
+    protected ResponseEntity<Object> handleTypeMismatch(TypeMismatchException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
+        logger.error(request.getContextPath(), ex.toString());
+        return new ResponseEntity<>(new StandardResponse(
+                StandardResponse.StatusStandardResponse.ERROR,
+                ex.getMessage()),
+                HttpStatus.BAD_REQUEST);
+    }
+
+    /*
+            Solución al error de no captura de la excepción ConstraintViolation
+            ¿Por qué era un error? Porqué el metodo findAll de la clase ReporteContratoController
+            recibe dos parametros (pagina y limite), de los cuales se valida que no vengan nullos o vacios
+            por tanto si vienen nullos lanza una excepción, ConstraintViolationException, está excepción es
+            dificil de capturarla con la clase controladora de excpciones (está clase).
+            La solución entonces es la respuesta en el link de abajo.
+
+         * https://stackoverflow.com/questions/45070642/springboot-doesnt-handle-org-hibernate-exception-constraintviolationexception/61581127#61581127
+         */
     @ExceptionHandler(javax.validation.ConstraintViolationException.class)
     public final ResponseEntity<StandardResponse> handleConstraintViolationException(Exception ex) {
         logger.error(ex.toString());
@@ -102,7 +121,7 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
         return new ResponseEntity<>(new StandardResponse(
                 StandardResponse.StatusStandardResponse.ERROR,
                 ex.getMessage()),
-                HttpStatus.NOT_FOUND);
+                HttpStatus.OK);
     }
 
 
