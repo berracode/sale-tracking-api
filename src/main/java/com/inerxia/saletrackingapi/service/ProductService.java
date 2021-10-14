@@ -40,7 +40,7 @@ public class ProductService {
         }
         System.out.println("name: "+name);
         List<ProductWrapperDto> productList = productRepository.findByName(name);
-        
+
         return productList;
     }
 
@@ -80,6 +80,18 @@ public class ProductService {
         productTx.setStock(product.getStock());
 
         return productTx;
+    }
+
+    public void deleteProduct(Integer id){
+        if(Objects.nonNull(id)){
+            Optional<Product> productOptional = productRepository.findById(id);
+            if(!productOptional.isPresent()){
+                throw new DataNotFoundException("exception.data_not_found.product");
+            }
+        }
+
+        productRepository.deleteById(id);
+
     }
 
 

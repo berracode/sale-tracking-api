@@ -26,11 +26,11 @@ public class ProviderProducts {
     @Column(name = "timestamp")
     private LocalDateTime timestamp;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name="provider_id", insertable = false, updatable = false, nullable = false)
     private Provider providerFk;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     @JoinColumn(name="product_id", insertable = false, updatable = false, nullable = false)
     private Product productFk;
 

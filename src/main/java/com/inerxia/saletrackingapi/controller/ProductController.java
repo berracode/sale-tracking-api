@@ -85,4 +85,23 @@ public class ProductController {
                 StandardResponse.StatusStandardResponse.OK,
                 productWrapperDtos));
     }
+
+
+    @DeleteMapping("/delete")
+    @ApiOperation(value = "Delete product by id", response = String.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "La petición fue procesada con éxito"),
+            @ApiResponse(code = 400, message = "La petición es inválida"),
+            @ApiResponse(code = 500, message = "Error del servidor al procesar la respuesta"),
+    })
+    public ResponseEntity<StandardResponse<String>> deleteProduct(
+            @RequestParam(name = "productId")  Integer productId){
+
+        productFacade.deleteProduct(productId);
+        return ResponseEntity.accepted().body(new StandardResponse<>(StandardResponse.StatusStandardResponse.OK,"delete.product.ok"));
+
+    }
+
+
+
 }
