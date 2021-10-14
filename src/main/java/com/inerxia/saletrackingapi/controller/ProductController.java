@@ -1,13 +1,12 @@
 package com.inerxia.saletrackingapi.controller;
 
-import com.inerxia.saletrackingapi.facade.ProductFacade;
 import com.inerxia.saletrackingapi.dto.ProductDto;
 import com.inerxia.saletrackingapi.dto.ProductWrapperDto;
+import com.inerxia.saletrackingapi.facade.ProductFacade;
 import com.inerxia.saletrackingapi.util.StandardResponse;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
-import org.springframework.data.repository.query.Param;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -39,7 +38,7 @@ public class ProductController {
     }
 
     @PostMapping
-    @ApiOperation(value = "Crea un producto", response = ProductWrapperDto.class)
+    @ApiOperation(value = "Save product", response = ProductWrapperDto.class)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "La petición fue procesada con éxito"),
             @ApiResponse(code = 400, message = "La petición es inválida"),

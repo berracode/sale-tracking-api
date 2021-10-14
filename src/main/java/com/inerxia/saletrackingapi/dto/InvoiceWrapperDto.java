@@ -1,6 +1,7 @@
 package com.inerxia.saletrackingapi.dto;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class InvoiceWrapperDto {
     private Integer invoiceId;
@@ -11,28 +12,9 @@ public class InvoiceWrapperDto {
     private Double total;
     private LocalDateTime localDateTimeInvoice;
 
-    private Integer invoiceProductId;
-    private Integer productId;
-    private Integer quantity;
-    private Double sellPrice;
-    private LocalDateTime localDateTimeInvoiceProduct;
+    private List<InvoiceProductsWrapperDto> invoiceProductsWrapperDtoList;
 
     public InvoiceWrapperDto() {
-    }
-
-    public InvoiceWrapperDto(Integer invoiceId, Integer customerId, Integer employeeId, Double tax, Double subtotal, Double total, LocalDateTime localDateTimeInvoice, Integer invoiceProductId, Integer productId, Integer quantity, Double sellPrice, LocalDateTime localDateTimeInvoiceProduct) {
-        this.invoiceId = invoiceId;
-        this.customerId = customerId;
-        this.employeeId = employeeId;
-        this.tax = tax;
-        this.subtotal = subtotal;
-        this.total = total;
-        this.localDateTimeInvoice = localDateTimeInvoice;
-        this.invoiceProductId = invoiceProductId;
-        this.productId = productId;
-        this.quantity = quantity;
-        this.sellPrice = sellPrice;
-        this.localDateTimeInvoiceProduct = localDateTimeInvoiceProduct;
     }
 
     public Integer getInvoiceId() {
@@ -91,43 +73,11 @@ public class InvoiceWrapperDto {
         this.localDateTimeInvoice = localDateTimeInvoice;
     }
 
-    public Integer getInvoiceProductId() {
-        return invoiceProductId;
+    public List<InvoiceProductsWrapperDto> getInvoiceProductsWrapperDtoList() {
+        return invoiceProductsWrapperDtoList;
     }
 
-    public void setInvoiceProductId(Integer invoiceProductId) {
-        this.invoiceProductId = invoiceProductId;
-    }
-
-    public Integer getProductId() {
-        return productId;
-    }
-
-    public void setProductId(Integer productId) {
-        this.productId = productId;
-    }
-
-    public Integer getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(Integer quantity) {
-        this.quantity = quantity;
-    }
-
-    public Double getSellPrice() {
-        return sellPrice;
-    }
-
-    public void setSellPrice(Double sellPrice) {
-        this.sellPrice = sellPrice;
-    }
-
-    public LocalDateTime getLocalDateTimeInvoiceProduct() {
-        return localDateTimeInvoiceProduct;
-    }
-
-    public void setLocalDateTimeInvoiceProduct(LocalDateTime localDateTimeInvoiceProduct) {
-        this.localDateTimeInvoiceProduct = localDateTimeInvoiceProduct;
+    public void setInvoiceProductsWrapperDtoList(List<InvoiceProductsWrapperDto> invoiceProductsWrapperDtoList) {
+        this.invoiceProductsWrapperDtoList = invoiceProductsWrapperDtoList;
     }
 }
