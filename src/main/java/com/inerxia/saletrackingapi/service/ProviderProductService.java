@@ -33,15 +33,14 @@ public class ProviderProductService {
     }
 
     public ProviderProducts editProviderProducts(ProviderProducts providerProducts){
-        if(Objects.isNull(providerProducts.getProductId())){
+        if(Objects.isNull(providerProducts.getId())){
             throw new ObjectNoEncontradoException("exception.objeto_no_encontrado");
         }
 
         ProviderProducts providerProductsTx = providerProductRepository
-                .findByProviderIdAndProductId(providerProducts.getProviderId(),providerProducts.getProductId());
-        if(Objects.isNull(providerProductsTx)){
-            providerProductsTx = this.createProviderProducts(providerProducts);
-        }
+                .findById(providerProducts.getId())
+                .orElseThrow(()-> new DataNotFoundException("exception.data_not_found.providerProducts"));
+
 
         try{
             providerProductsTx.setProviderId(providerProducts.getProviderId());

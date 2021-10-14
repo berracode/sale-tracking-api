@@ -9,8 +9,9 @@ import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 public class ProductWrapperDto {
+    private Integer providerProductId;
 
-    private Integer id;
+    private Integer productId;
 
     @NotBlank(message = "The name cannot be empty")
     private String name;
@@ -36,10 +37,9 @@ public class ProductWrapperDto {
     public ProductWrapperDto() {
     }
 
-    public ProductWrapperDto(Integer id, String name, String code, Double stock,
-                             Integer providerId, String providerName, Double netPrice,
-                             Double sellPrice, LocalDateTime timestamp) {
-        this.id = id;
+    public ProductWrapperDto(Integer providerProductId, Integer productId, String name, String code, Double stock, Integer providerId, String providerName, Double netPrice, Double sellPrice, LocalDateTime timestamp) {
+        this.providerProductId = providerProductId;
+        this.productId = productId;
         this.name = name;
         this.code = code;
         this.stock = stock;
@@ -50,20 +50,20 @@ public class ProductWrapperDto {
         this.timestamp = timestamp;
     }
 
-    public Integer getId() {
-        return id;
+    public Integer getProviderProductId() {
+        return providerProductId;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setProviderProductId(Integer providerProductId) {
+        this.providerProductId = providerProductId;
     }
 
-    public String getProviderName() {
-        return providerName;
+    public Integer getProductId() {
+        return productId;
     }
 
-    public void setProviderName(String providerName) {
-        this.providerName = providerName;
+    public void setProductId(Integer productId) {
+        this.productId = productId;
     }
 
     public String getName() {
@@ -81,6 +81,7 @@ public class ProductWrapperDto {
     public void setCode(String code) {
         this.code = code;
     }
+
     public Double getStock() {
         return stock;
     }
@@ -97,7 +98,13 @@ public class ProductWrapperDto {
         this.providerId = providerId;
     }
 
+    public String getProviderName() {
+        return providerName;
+    }
 
+    public void setProviderName(String providerName) {
+        this.providerName = providerName;
+    }
 
     public Double getNetPrice() {
         return netPrice;
