@@ -4,23 +4,19 @@ public class GeneralRuntimeException extends RuntimeException{
 
     private static final long serialVersionUID = 1L;
     private String message;
-    private String translationKey;
 
-    public GeneralRuntimeException(String message){
+
+    public <T extends GeneralRuntimeException> GeneralRuntimeException(Class<T> className, String message) {
         super(message);
-        this.message = message;
+        this.message = getDefaulMessage(className) + message;
     }
 
-    public GeneralRuntimeException(String message, Throwable throwable){
+    public <T extends GeneralRuntimeException> GeneralRuntimeException(Class<T> className, String message,
+                                                                       Throwable throwable) {
         super(message, throwable);
-        this.message = message;
+        this.message = getDefaulMessage(className) + message;
     }
 
-    public GeneralRuntimeException(String message, String translationKey){
-        super(message);
-        this.message = message;
-        this.translationKey=translationKey;
-    }
 
     public String getMessage() {
         return message;
@@ -30,11 +26,7 @@ public class GeneralRuntimeException extends RuntimeException{
         this.message = message;
     }
 
-    public String getTranslationKey() {
-        return translationKey;
-    }
-
-    public void setTranslationKey(String translationKey) {
-        this.translationKey = translationKey;
+    private <T extends GeneralRuntimeException> String getDefaulMessage(Class<T> t) {
+        return "[" + t.getSimpleName() + "] ";
     }
 }

@@ -31,7 +31,7 @@ public class ProviderController {
     public ResponseEntity<StandardResponse<ProviderDto>> findById(@PathVariable Integer id){
         ProviderDto providerDto = providerFacade.findById(id);
         return ResponseEntity.ok(new StandardResponse<>(
-                StandardResponse.EstadoStandardResponse.OK,
+                StandardResponse.StatusStandardResponse.OK,
                 providerDto));
     }
 
@@ -46,7 +46,7 @@ public class ProviderController {
 
         List<ProviderDto> productDtoList = providerFacade.findAll();
         return ResponseEntity.ok(new StandardResponse<>(
-                StandardResponse.EstadoStandardResponse.OK,
+                StandardResponse.StatusStandardResponse.OK,
                 productDtoList));
     }
 
@@ -57,11 +57,11 @@ public class ProviderController {
             @ApiResponse(code = 400, message = "La petición es inválida"),
             @ApiResponse(code = 500, message = "Error del servidor al procesar la respuesta"),
     })
-    public ResponseEntity<StandardResponse<ProviderDto>> createProduct(
+    public ResponseEntity<StandardResponse<ProviderDto>> createProvider(
             @Valid @RequestBody ProviderDto providerDto){
         ProviderDto providerDto1 = providerFacade.createProvider(providerDto);
         return ResponseEntity.ok(new StandardResponse<>(
-                StandardResponse.EstadoStandardResponse.OK,
+                StandardResponse.StatusStandardResponse.OK,
                 "provider.create.ok",
                 providerDto1));
     }
@@ -73,13 +73,44 @@ public class ProviderController {
             @ApiResponse(code = 400, message = "La petición es inválida"),
             @ApiResponse(code = 500, message = "Error del servidor al procesar la respuesta"),
     })
-    public ResponseEntity<StandardResponse<ProviderDto>> editarServicio(
+    public ResponseEntity<StandardResponse<ProviderDto>> editProvider(
             @Valid @RequestBody ProviderDto providerDto){
         ProviderDto providerDto1 = providerFacade.editProvider(providerDto);
         return ResponseEntity.ok(new StandardResponse<>(
-                StandardResponse.EstadoStandardResponse.OK,
+                StandardResponse.StatusStandardResponse.OK,
                 "provider.editar.exito",
                 providerDto1));
+    }
+
+    @GetMapping({"/get-by-name"})
+    @ApiOperation(value = "Find providers by name", response = List.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "La petición fue procesada con éxito"),
+            @ApiResponse(code = 400, message = "La petición es inválida"),
+            @ApiResponse(code = 500, message = "Error del servidor al procesar la respuesta"),
+    })
+    public ResponseEntity<StandardResponse<List<ProviderDto>>> findByName(
+            @RequestParam(name = "name",defaultValue = "",required = false) String name){
+
+        List<ProviderDto> providerDtoList = providerFacade.findByName(name);
+        return ResponseEntity.ok(new StandardResponse<>(
+                StandardResponse.StatusStandardResponse.OK,
+                providerDtoList));
+    }
+
+    @DeleteMapping({"/delete",})
+    @ApiOperation(value = "Delete provider by id", response = String.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "La petición fue procesada con éxito"),
+            @ApiResponse(code = 400, message = "La petición es inválida"),
+            @ApiResponse(code = 500, message = "Error del servidor al procesar la respuesta"),
+    })
+    public ResponseEntity<StandardResponse<String>> deleteProvider(
+            @RequestParam(name = "providerId")  Integer providerId){
+
+        providerFacade.deleteProvider(providerId);
+        return ResponseEntity.accepted().body(new StandardResponse<>(StandardResponse.StatusStandardResponse.OK,"delete.product.ok"));
+
     }
 
 }

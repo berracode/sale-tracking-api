@@ -17,10 +17,10 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 
-public class JwtFiltroAutenticacion extends OncePerRequestFilter {
+public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
 	@Autowired
-	private JwtGenerarToken jwtGenerarToken;
+	private GenerateJWT generateJWT;
 	@Autowired
 	private UserService userServiceAuth;
 
@@ -29,9 +29,11 @@ public class JwtFiltroAutenticacion extends OncePerRequestFilter {
 			throws ServletException, IOException {
 		try {
 			String jwt = getJwtFromRequest(request);
+			System.out.println("#################jwt: "+jwt);
 
-			if (StringUtils.hasText(jwt) && jwtGenerarToken.validarToken(jwt)) {
-				String userId = jwtGenerarToken.getUsuarioJWT(jwt);
+			if (StringUtils.hasText(jwt) && generateJWT.validateToken(jwt)) {
+				String userId = generateJWT.getUserJwt(jwt);
+				System.out.println("#################user id: "+userId);
 				UserDetails userDetails = userServiceAuth.loadUserByUsername(userId);
 				UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
 						userDetails, null, userDetails.getAuthorities());

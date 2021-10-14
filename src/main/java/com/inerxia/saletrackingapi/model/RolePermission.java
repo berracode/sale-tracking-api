@@ -64,4 +64,15 @@ public class RolePermission {
     public void setRoleFk(Role roleFk) {
         this.roleFk = roleFk;
     }
+
+    @Override
+    public String toString() {
+        return "RolePermission{" +
+                "id=" + id +
+                ", permissionId=" + permissionId +
+                ", roleId=" + roleId +
+                ", permissionFk=" + permissionFk +
+                ", roleFk=" + roleFk+
+                '}';
+    }
 }

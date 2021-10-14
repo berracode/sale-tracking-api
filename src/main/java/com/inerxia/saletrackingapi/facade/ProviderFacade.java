@@ -1,6 +1,7 @@
 package com.inerxia.saletrackingapi.facade;
 
 
+import com.inerxia.saletrackingapi.dto.ProductWrapperDto;
 import com.inerxia.saletrackingapi.dto.ProviderDto;
 import com.inerxia.saletrackingapi.mapper.ProviderMapper;
 import com.inerxia.saletrackingapi.service.ProviderService;
@@ -40,6 +41,17 @@ public class ProviderFacade {
     public ProviderDto editProvider(ProviderDto providerDto){
         return providerMapper.toDto(providerService.editProvider(providerMapper.toEntity(providerDto)));
     }
+
+    public List<ProviderDto> findByName(String name){
+
+        return providerMapper.toDto(providerService.findByName(name));
+
+    }
+
+    public void deleteProvider(Integer id){
+        providerService.deleteProvider(id);
+    }
+
 
 
 

@@ -40,9 +40,7 @@ public class ProductService {
         }
         System.out.println("name: "+name);
         List<ProductWrapperDto> productList = productRepository.findByName(name);
-        if (productList.isEmpty()){
-            throw new DataNotFoundException("exception.data_not_found.sede");
-        }
+
         return productList;
     }
 
@@ -68,6 +66,32 @@ public class ProductService {
         }catch (DataIntegrityViolationException e) {
             throw new DataConstraintViolationException("exception.data_constraint_violation.product");
         }
+    }
+
+    public Product editProduct(Product product){
+        if(Objects.isNull(product.getId())){
+            throw new ObjectNoEncontradoException("exception.objeto_no_encontrado");
+        }
+
+        Product productTx = productRepository.findById(product.getId())
+                .orElseThrow(()-> new DataNotFoundException("exception.data_not_found.product"));
+        productTx.setCode(product.getCode());
+        productTx.setName(product.getName());
+        productTx.setStock(product.getStock());
+
+        return productTx;
+    }
+
+    public void deleteProduct(Integer id){
+        if(Objects.nonNull(id)){
+            Optional<Product> productOptional = productRepository.findById(id);
+            if(!productOptional.isPresent()){
+                throw new DataNotFoundException("exception.data_not_found.product");
+            }
+        }
+
+        productRepository.deleteById(id);
+
     }
 
 

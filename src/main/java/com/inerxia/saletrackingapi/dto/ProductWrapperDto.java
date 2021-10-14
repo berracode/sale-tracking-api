@@ -9,17 +9,17 @@ import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 public class ProductWrapperDto {
+    private Integer providerProductId;
 
-    private Integer id;
+    private Integer productId;
 
-    @NotBlank(message = "No puede ser vacío el name")
+    @NotBlank(message = "The name cannot be empty")
     private String name;
 
-    @NotBlank(message = "No puede ser vacío el code")
+    @NotBlank(message = "The code cannot be empty")
     private String code;
 
-    @NotNull(message = "No puede ser vacío el stock")
-    private double stock;
+    private Double stock;
 
     @NotNull
     private Integer providerId;
@@ -28,20 +28,18 @@ public class ProductWrapperDto {
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private String providerName;
 
-    @NotNull
-    private double netPrice;
+    private Double netPrice;
 
-    @NotNull
-    private double sellPrice;
+    private Double sellPrice;
 
-    @NotNull
     private LocalDateTime timestamp;
 
     public ProductWrapperDto() {
     }
 
-    public ProductWrapperDto(Integer id, String name, String code, double stock, Integer providerId, String providerName, double netPrice, double sellPrice, LocalDateTime timestamp) {
-        this.id = id;
+    public ProductWrapperDto(Integer providerProductId, Integer productId, String name, String code, Double stock, Integer providerId, String providerName, Double netPrice, Double sellPrice, LocalDateTime timestamp) {
+        this.providerProductId = providerProductId;
+        this.productId = productId;
         this.name = name;
         this.code = code;
         this.stock = stock;
@@ -52,20 +50,20 @@ public class ProductWrapperDto {
         this.timestamp = timestamp;
     }
 
-    public Integer getId() {
-        return id;
+    public Integer getProviderProductId() {
+        return providerProductId;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setProviderProductId(Integer providerProductId) {
+        this.providerProductId = providerProductId;
     }
 
-    public String getProviderName() {
-        return providerName;
+    public Integer getProductId() {
+        return productId;
     }
 
-    public void setProviderName(String providerName) {
-        this.providerName = providerName;
+    public void setProductId(Integer productId) {
+        this.productId = productId;
     }
 
     public String getName() {
@@ -83,11 +81,12 @@ public class ProductWrapperDto {
     public void setCode(String code) {
         this.code = code;
     }
-    public double getStock() {
+
+    public Double getStock() {
         return stock;
     }
 
-    public void setStock(double stock) {
+    public void setStock(Double stock) {
         this.stock = stock;
     }
 
@@ -99,21 +98,27 @@ public class ProductWrapperDto {
         this.providerId = providerId;
     }
 
+    public String getProviderName() {
+        return providerName;
+    }
 
+    public void setProviderName(String providerName) {
+        this.providerName = providerName;
+    }
 
-    public double getNetPrice() {
+    public Double getNetPrice() {
         return netPrice;
     }
 
-    public void setNetPrice(double netPrice) {
+    public void setNetPrice(Double netPrice) {
         this.netPrice = netPrice;
     }
 
-    public double getSellPrice() {
+    public Double getSellPrice() {
         return sellPrice;
     }
 
-    public void setSellPrice(double sellPrice) {
+    public void setSellPrice(Double sellPrice) {
         this.sellPrice = sellPrice;
     }
 
