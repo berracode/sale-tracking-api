@@ -1,8 +1,11 @@
 package com.inerxia.saletrackingapi.service;
 
+import com.inerxia.saletrackingapi.exception.DataConstraintViolationException;
 import com.inerxia.saletrackingapi.exception.DataNotFoundException;
+import com.inerxia.saletrackingapi.exception.ObjectNoEncontradoException;
 import com.inerxia.saletrackingapi.model.ProviderProductRepository;
 import com.inerxia.saletrackingapi.model.ProviderProducts;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,5 +30,26 @@ public class ProviderProductService {
             }
         }
         return providerProductRepository.save(providerProducts);
+    }
+
+    public ProviderProducts editProviderProducts(ProviderProducts providerProducts){
+        if(Objects.isNull(providerProducts.getProductId())){
+            throw new ObjectNoEncontradoException("exception.objeto_no_encontrado");
+        }
+
+        ProviderProducts providerProductsTx = providerProductRepository
+                .findByProviderIdAndProductId(providerProducts.getProviderId(),providerProducts.getProductId())
+                .orElseThrow(()-> new DataNotFoundException("exception.data_not_found.empleado_servicio"));
+
+        try{
+            providerProductsTx.setProviderId(providerProducts.getProviderId());
+            providerProductsTx.setProductId(providerProducts.getProductId());
+            providerProductsTx.setNetPrice(providerProducts.getNetPrice());
+            providerProductsTx.setSellPrice(providerProducts.getSellPrice());
+            providerProductsTx.setTimestamp(providerProducts.getTimestamp());
+            return providerProductsTx;
+        }catch (DataIntegrityViolationException e) {
+            throw new DataConstraintViolationException("exception.data_constraint_violation.providerProducts");
+        }
     }
 }
