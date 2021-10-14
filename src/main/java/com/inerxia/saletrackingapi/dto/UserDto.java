@@ -20,6 +20,8 @@ public class UserDto {
 
 	private RoleDto roleDtoFk;
 
+
+
 	public Integer getId() {
 		return id;
 	}

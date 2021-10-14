@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 public class ProductWrapperDto {
     private Integer providerProductId;
 
+    @JsonAlias("id")
     private Integer productId;
 
     @NotBlank(message = "The name cannot be empty")
@@ -58,6 +59,7 @@ public class ProductWrapperDto {
         this.providerProductId = providerProductId;
     }
 
+    @JsonProperty("id")
     public Integer getProductId() {
         return productId;
     }
