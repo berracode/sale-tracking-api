@@ -1,9 +1,13 @@
 package com.inerxia.saletrackingapi.facade;
 
-import com.inerxia.saletrackingapi.config.jwt2.JwtGenerarToken;
+import com.inerxia.saletrackingapi.config.jwt2.GenerateJWT;
+import com.inerxia.saletrackingapi.dto.RoleDto;
 import com.inerxia.saletrackingapi.dto.UserDto;
+import com.inerxia.saletrackingapi.dto.UserRolePermissionsDto;
 import com.inerxia.saletrackingapi.dto.UserSingIn;
+import com.inerxia.saletrackingapi.mapper.RoleMapper;
 import com.inerxia.saletrackingapi.mapper.UserMapper;
+import com.inerxia.saletrackingapi.service.RoleService;
 import com.inerxia.saletrackingapi.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -14,7 +18,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.Locale;
+import java.util.List;
 
 import static com.inerxia.saletrackingapi.util.Constants.TOKEN_TYPE;
 
@@ -25,17 +29,23 @@ public class UserFacade {
     private AuthenticationManager authenticationManager;
     @Autowired
     private PasswordEncoder passwordEncoder;
-    private JwtGenerarToken jwtGenerarToken;
+    private GenerateJWT generateJWT;
     private UserMapper userMapper;
     private UserService userService;
 
-    public UserFacade(AuthenticationManager authenticationManager, JwtGenerarToken jwtGenerarToken,
-                      UserMapper userMapper, UserService userService) {
+    private RoleService roleService;
+    private RoleMapper roleMapper;
+
+    public UserFacade(AuthenticationManager authenticationManager, GenerateJWT generateJWT,
+                      UserMapper userMapper, UserService userService,
+                      RoleService roleService, RoleMapper roleMapper) {
 
         this.authenticationManager = authenticationManager;
-       this.jwtGenerarToken = jwtGenerarToken;
+       this.generateJWT = generateJWT;
         this.userMapper = userMapper;
         this.userService = userService;
+        this.roleService = roleService;
+        this.roleMapper = roleMapper;
     }
 
     public UserSingIn singIn(UserDto userDto) {
@@ -47,8 +57,12 @@ public class UserFacade {
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        String jwt = jwtGenerarToken.generarToken(authentication);
+        String jwt = generateJWT.generateToken(authentication);
         UserSingIn userSingIn = new UserSingIn();
+        List<UserRolePermissionsDto> userRolePermissionsDtoList = userService.findUserRoleWithPermission(userDto.getEmail());
+
+        userSingIn.setRoleDto(new RoleDto(userRolePermissionsDtoList.get(0).getRoleId(), userRolePermissionsDtoList.get(0).getRoleName()));
+        userSingIn.setUserRolePermissionsDtoList(userRolePermissionsDtoList);
         userSingIn.setTokenType(TOKEN_TYPE);
         userSingIn.setToken(jwt);
 

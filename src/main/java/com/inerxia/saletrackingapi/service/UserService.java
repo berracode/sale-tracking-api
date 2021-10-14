@@ -1,5 +1,6 @@
 package com.inerxia.saletrackingapi.service;
 
+import com.inerxia.saletrackingapi.dto.UserRolePermissionsDto;
 import com.inerxia.saletrackingapi.exception.DataConstraintViolationException;
 import com.inerxia.saletrackingapi.exception.DataNotFoundException;
 import com.inerxia.saletrackingapi.model.User;
@@ -37,6 +38,20 @@ public class UserService implements UserDetailsService {
         }
         return userRepository.findByEmail(user)
                 .orElseThrow(() -> new DataNotFoundException("User not found"));
+    }
+
+    public List<UserRolePermissionsDto> findUserRoleWithPermission(String email) {
+        System.out.println("email: "+email);
+        if (Objects.isNull(email)) {
+            throw new ObjectNotFoundException(email, "User not found");
+        }
+        List<UserRolePermissionsDto> userRolePermissionsDtoList =
+                userRepository.findUserRoleWithPermission(email);
+        if (userRolePermissionsDtoList.isEmpty()){
+            throw new DataNotFoundException("exception.data_not_found.provider");
+        }
+        return userRolePermissionsDtoList;
+
     }
 
 

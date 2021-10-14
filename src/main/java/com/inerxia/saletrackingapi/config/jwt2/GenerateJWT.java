@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 
 
 @Component
-public class JwtGenerarToken {
+public class GenerateJWT {
 	
 
 	@Value("${jwt.secret.key}")
@@ -21,7 +21,7 @@ public class JwtGenerarToken {
 	@Value("${jwt.expire.time}")
 	private String jwtExpirationTime;
 	
-	public String generarToken(Authentication authentication) {
+	public String generateToken(Authentication authentication) {
 		UserDetails user = (UserDetails) authentication.getPrincipal();
 		System.out.println("user details: "+user.getUsername());
 		Date ahora = new Date();
@@ -30,17 +30,17 @@ public class JwtGenerarToken {
 				.signWith(SignatureAlgorithm.HS512, jwtSecret).compact();
 	}
 
-	public String getUsuarioJWT(String token) {
+	public String getUserJwt(String token) {
 		Claims claims = Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody();
 		return claims.getSubject();
 	}
 	
-	public Boolean validarToken(String autToken) {
+	public Boolean validateToken(String autToken) {
 		try {
 			Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(autToken);
 			return true;
 		} catch (SignatureException |MalformedJwtException| ExpiredJwtException |UnsupportedJwtException|IllegalArgumentException ex) {
-			Logger.getGlobal().log(Level.SEVERE, "Error validando token", ex);
+			Logger.getGlobal().log(Level.SEVERE, "Error validating token", ex);
 		} 
 		
 		return false;
