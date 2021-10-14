@@ -33,7 +33,7 @@ public class CustomerController {
             @ApiResponse(code = 500, message = "Error del servidor al procesar la respuesta"),
     })
     public ResponseEntity<StandardResponse<List<CustomerDto>>> findByName(
-            @RequestParam(name = "aname",defaultValue = "",required = false) String name){
+            @RequestParam(name = "name",defaultValue = "",required = false) String name){
 
         List<CustomerDto> customerDtoList = customerFacade.findByName(name);
         return ResponseEntity.ok(new StandardResponse<>(

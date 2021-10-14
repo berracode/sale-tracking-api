@@ -6,7 +6,7 @@ import java.util.List;
 public class UserSingIn {
     private String token;
     private String tokenType;
-    private RoleDto roleDto;
+    private UserWrapperDto userWrapperDto;
     private List<UserRolePermissionsDto> userRolePermissionsDtoList;
 
     public String getToken() {
@@ -33,11 +33,11 @@ public class UserSingIn {
         this.userRolePermissionsDtoList = userRolePermissionsDtoList;
     }
 
-    public RoleDto getRoleDto() {
-        return roleDto;
+    public UserWrapperDto getUserWrapperDto() {
+        return userWrapperDto;
     }
 
-    public void setRoleDto(RoleDto roleDto) {
-        this.roleDto = roleDto;
+    public void setUserWrapperDto(UserWrapperDto userWrapperDto) {
+        this.userWrapperDto = userWrapperDto;
     }
 }
