@@ -13,10 +13,10 @@ public interface UserRepository extends JpaRepository<User, Integer>{
 	
     Optional<User> findByEmail(String email);
 
-    @Query("SELECT new com.inerxia.saletrackingapi.dto.UserRolePermissionsDto(r.id,r.name,rp.permissionId,p.name) FROM User u " +
-            "LEFT JOIN Role r on u.roleId = r.id " +
-            "LEFT JOIN RolePermission rp on r.id = rp.roleId " +
-            "LEFT JOIN Permission p on rp.permissionId = p.id " +
+    @Query("SELECT new com.inerxia.saletrackingapi.dto.UserRolePermissionsDto(u.email, u.firstName, u.lastName, r.id,r.name,rp.permissionId,p.name) FROM User u " +
+            "INNER JOIN Role r on u.roleId = r.id " +
+            "INNER JOIN RolePermission rp on r.id = rp.roleId " +
+            "INNER JOIN Permission p on rp.permissionId = p.id " +
             "WHERE u.email LIKE %:email%")
     List<UserRolePermissionsDto> findUserRoleWithPermission(@Param("email") String email);
 

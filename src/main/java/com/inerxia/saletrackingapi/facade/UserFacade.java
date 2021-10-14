@@ -1,12 +1,10 @@
 package com.inerxia.saletrackingapi.facade;
 
 import com.inerxia.saletrackingapi.config.jwt2.GenerateJWT;
-import com.inerxia.saletrackingapi.dto.RoleDto;
-import com.inerxia.saletrackingapi.dto.UserDto;
-import com.inerxia.saletrackingapi.dto.UserRolePermissionsDto;
-import com.inerxia.saletrackingapi.dto.UserSingIn;
+import com.inerxia.saletrackingapi.dto.*;
 import com.inerxia.saletrackingapi.mapper.RoleMapper;
 import com.inerxia.saletrackingapi.mapper.UserMapper;
+import com.inerxia.saletrackingapi.model.User;
 import com.inerxia.saletrackingapi.service.RoleService;
 import com.inerxia.saletrackingapi.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,7 +59,14 @@ public class UserFacade {
         UserSingIn userSingIn = new UserSingIn();
         List<UserRolePermissionsDto> userRolePermissionsDtoList = userService.findUserRoleWithPermission(userDto.getEmail());
 
-        userSingIn.setRoleDto(new RoleDto(userRolePermissionsDtoList.get(0).getRoleId(), userRolePermissionsDtoList.get(0).getRoleName()));
+        userSingIn.setUserWrapperDto(new UserWrapperDto(
+                userRolePermissionsDtoList.get(0).getEmail(),
+                userRolePermissionsDtoList.get(0).getFirstName(),
+                userRolePermissionsDtoList.get(0).getLastName(),
+                new RoleDto(userRolePermissionsDtoList.get(0).getRoleId(),
+                        userRolePermissionsDtoList.get(0).getRoleName())
+                )
+        );
         userSingIn.setUserRolePermissionsDtoList(userRolePermissionsDtoList);
         userSingIn.setTokenType(TOKEN_TYPE);
         userSingIn.setToken(jwt);
