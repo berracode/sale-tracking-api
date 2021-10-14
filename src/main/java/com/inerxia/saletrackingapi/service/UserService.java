@@ -2,6 +2,7 @@ package com.inerxia.saletrackingapi.service;
 
 import com.inerxia.saletrackingapi.dto.UserRolePermissionsDto;
 import com.inerxia.saletrackingapi.exception.DataConstraintViolationException;
+import com.inerxia.saletrackingapi.exception.DataDuplicatedException;
 import com.inerxia.saletrackingapi.exception.DataNotFoundException;
 import com.inerxia.saletrackingapi.model.User;
 import com.inerxia.saletrackingapi.model.UserRepository;
@@ -56,11 +57,14 @@ public class UserService implements UserDetailsService {
 
 
 
+
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = this.findByUserName(username);
+        System.out.println("user role: "+user.getRoleFk().getName());
         List<String> rolesList = new ArrayList<>();
-        rolesList.add("ADMIN");//ROL QUEMADO, ASOCIAR A BD
+        rolesList.add(user.getRoleFk().getName());
 
         return new org.springframework.security.core.userdetails.User(
                 user.getEmail(), user.getPassword(), getAuthorities( rolesList));
@@ -85,6 +89,14 @@ public class UserService implements UserDetailsService {
             Optional<User> userOptional = userRepository.findById(user.getId());
             if(userOptional.isPresent()){
                 throw new DataNotFoundException("exception.data_duplicated.user");
+            }
+
+        }
+
+        if(Objects.nonNull(user.getEmail())){
+            Optional<User> userOptional = userRepository.findByEmail(user.getEmail());
+            if(userOptional.isPresent()){
+                throw new DataDuplicatedException("exception.data_duplicated.user");
             }
 
         }

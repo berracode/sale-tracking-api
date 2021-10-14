@@ -6,7 +6,7 @@ public class EmployeeDto {
     private String name;
     private String address;
     private String phone;
-    private String userId;
+    private Integer userId;
     private UserDto user;
 
     public Integer getId() {
@@ -49,11 +49,11 @@ public class EmployeeDto {
         this.phone = phone;
     }
 
-    public String getUserId() {
+    public Integer getUserId() {
         return userId;
     }
 
-    public void setUserId(String userId) {
+    public void setUserId(Integer userId) {
         this.userId = userId;
     }
 
