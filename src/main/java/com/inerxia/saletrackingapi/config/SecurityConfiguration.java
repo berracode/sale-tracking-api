@@ -69,7 +69,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.antMatchers(HttpMethod.POST, "/user/singin/**").permitAll()
 				.antMatchers(HttpMethod.POST, "/user/customer/**").permitAll()
 				.antMatchers("/").permitAll()
-				.anyRequest().authenticated().and()
+				.anyRequest().permitAll().and()//anyRequest().authenticated().and()
 				.addFilterBefore(corsFilter, ChannelProcessingFilter.class)
 				.addFilterBefore(jwtFiltroAutenticacion(), UsernamePasswordAuthenticationFilter.class)
 				.csrf().disable()
