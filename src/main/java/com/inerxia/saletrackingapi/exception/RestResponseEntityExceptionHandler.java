@@ -45,6 +45,15 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
                 HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(UserNotEnabledLoginException.class)
+    public final ResponseEntity<StandardResponse> handleUserNotEnabledLoginException(HttpServletRequest request, UserNotEnabledLoginException ex){
+        logger.error(request.getRequestURL().toString(), ex);
+        return new ResponseEntity<>(new StandardResponse(
+                StandardResponse.StatusStandardResponse.ERROR,
+                ex.getMessage()),
+                HttpStatus.FORBIDDEN);
+    }
+
     @ExceptionHandler(DataDuplicatedException.class)
     public final ResponseEntity<StandardResponse> handleDataDuplicated(HttpServletRequest request, DataDuplicatedException ex){
         logger.error(request.getRequestURL().toString(), ex);

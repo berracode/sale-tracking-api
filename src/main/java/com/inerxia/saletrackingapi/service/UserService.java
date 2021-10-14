@@ -4,6 +4,7 @@ import com.inerxia.saletrackingapi.dto.UserRolePermissionsDto;
 import com.inerxia.saletrackingapi.exception.DataConstraintViolationException;
 import com.inerxia.saletrackingapi.exception.DataDuplicatedException;
 import com.inerxia.saletrackingapi.exception.DataNotFoundException;
+import com.inerxia.saletrackingapi.exception.UserNotEnabledLoginException;
 import com.inerxia.saletrackingapi.model.User;
 import com.inerxia.saletrackingapi.model.UserRepository;
 import org.hibernate.ObjectNotFoundException;
@@ -20,6 +21,7 @@ import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import static com.inerxia.saletrackingapi.util.Constants.ROLE_CUSTOMER;
 import static com.inerxia.saletrackingapi.util.Constants.ROLE_PREFIX;
 
 @Service
@@ -63,6 +65,11 @@ public class UserService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = this.findByUserName(username);
         System.out.println("user role: "+user.getRoleFk().getName());
+
+        if(user.getRoleFk().getId().equals(ROLE_CUSTOMER)){
+            throw new UserNotEnabledLoginException("At the moment you are not allowed to log in to this system.");
+        }
+
         List<String> rolesList = new ArrayList<>();
         rolesList.add(user.getRoleFk().getName());
 
