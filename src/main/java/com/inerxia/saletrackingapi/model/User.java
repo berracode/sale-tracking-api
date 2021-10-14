@@ -85,4 +85,17 @@ public class User {
 	public void setRoleFk(Role roleFk) {
 		this.roleFk = roleFk;
 	}
+
+	@Override
+	public String toString() {
+		return "User{" +
+				"id=" + id +
+				", email='" + email + '\'' +
+				", firstName='" + firstName + '\'' +
+				", lastName='" + lastName + '\'' +
+				", password='" + password + '\'' +
+				", roleId=" + roleId +
+				", roleFk=" + roleFk +
+				'}';
+	}
 }

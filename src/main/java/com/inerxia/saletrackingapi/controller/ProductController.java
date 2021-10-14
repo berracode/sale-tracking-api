@@ -7,6 +7,7 @@ import com.inerxia.saletrackingapi.util.StandardResponse;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,7 +34,7 @@ public class ProductController {
 
         List<ProductDto> productDtoList = productFacade.findAll();
         return ResponseEntity.ok(new StandardResponse<>(
-                StandardResponse.EstadoStandardResponse.OK,
+                StandardResponse.StatusStandardResponse.OK,
                 productDtoList));
     }
 
@@ -48,8 +49,24 @@ public class ProductController {
             @Valid @RequestBody ProductWrapperDto productWrapperDto){
         ProductWrapperDto productDto1 = productFacade.createProduct(productWrapperDto);
         return ResponseEntity.ok(new StandardResponse<>(
-                StandardResponse.EstadoStandardResponse.OK,
+                StandardResponse.StatusStandardResponse.OK,
                 "product.create.ok",
                 productDto1));
+    }
+
+    @GetMapping({"/get-by-name"})
+    @ApiOperation(value = "Find products by name", response = List.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "La petición fue procesada con éxito"),
+            @ApiResponse(code = 400, message = "La petición es inválida"),
+            @ApiResponse(code = 500, message = "Error del servidor al procesar la respuesta"),
+    })
+    public ResponseEntity<StandardResponse<List<ProductWrapperDto>>> findByName(
+            @RequestParam(name = "name",defaultValue = "",required = false) String name){
+
+        List<ProductWrapperDto> productWrapperDtos = productFacade.findByName(name);
+        return ResponseEntity.ok(new StandardResponse<>(
+                StandardResponse.StatusStandardResponse.OK,
+                productWrapperDtos));
     }
 }

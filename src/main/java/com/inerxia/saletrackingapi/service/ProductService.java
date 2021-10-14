@@ -1,7 +1,9 @@
 package com.inerxia.saletrackingapi.service;
 
+import com.inerxia.saletrackingapi.dto.ProductWrapperDto;
 import com.inerxia.saletrackingapi.exception.DataConstraintViolationException;
 import com.inerxia.saletrackingapi.exception.DataNotFoundException;
+import com.inerxia.saletrackingapi.exception.ObjectNoEncontradoException;
 import com.inerxia.saletrackingapi.model.Product;
 import com.inerxia.saletrackingapi.model.ProductRepository;
 import com.inerxia.saletrackingapi.model.Provider;
@@ -31,6 +33,20 @@ public class ProductService {
         return  productRepository.findById(id)
                 .orElseThrow(()-> new DataNotFoundException("exception.data_not_found.product"));
     }
+
+    public List<ProductWrapperDto> findByName(String name){
+        if(Objects.isNull(name)){
+            throw new ObjectNoEncontradoException("exception.objeto_no_encontrado");
+        }
+        System.out.println("name: "+name);
+        List<ProductWrapperDto> productList = productRepository.findByName(name);
+        if (productList.isEmpty()){
+            throw new DataNotFoundException("exception.data_not_found.sede");
+        }
+        return productList;
+    }
+
+
     public List<Product> findAll(){
         List<Product> salonList = productRepository.findAll();
         if (salonList.isEmpty()){

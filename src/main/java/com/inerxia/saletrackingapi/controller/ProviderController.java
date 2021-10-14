@@ -31,7 +31,7 @@ public class ProviderController {
     public ResponseEntity<StandardResponse<ProviderDto>> findById(@PathVariable Integer id){
         ProviderDto providerDto = providerFacade.findById(id);
         return ResponseEntity.ok(new StandardResponse<>(
-                StandardResponse.EstadoStandardResponse.OK,
+                StandardResponse.StatusStandardResponse.OK,
                 providerDto));
     }
 
@@ -46,7 +46,7 @@ public class ProviderController {
 
         List<ProviderDto> productDtoList = providerFacade.findAll();
         return ResponseEntity.ok(new StandardResponse<>(
-                StandardResponse.EstadoStandardResponse.OK,
+                StandardResponse.StatusStandardResponse.OK,
                 productDtoList));
     }
 
@@ -61,7 +61,7 @@ public class ProviderController {
             @Valid @RequestBody ProviderDto providerDto){
         ProviderDto providerDto1 = providerFacade.createProvider(providerDto);
         return ResponseEntity.ok(new StandardResponse<>(
-                StandardResponse.EstadoStandardResponse.OK,
+                StandardResponse.StatusStandardResponse.OK,
                 "provider.create.ok",
                 providerDto1));
     }
@@ -77,7 +77,7 @@ public class ProviderController {
             @Valid @RequestBody ProviderDto providerDto){
         ProviderDto providerDto1 = providerFacade.editProvider(providerDto);
         return ResponseEntity.ok(new StandardResponse<>(
-                StandardResponse.EstadoStandardResponse.OK,
+                StandardResponse.StatusStandardResponse.OK,
                 "provider.editar.exito",
                 providerDto1));
     }

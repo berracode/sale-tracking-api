@@ -25,7 +25,7 @@ public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
 
 		response.setCharacterEncoding("UTF-8");
 		
-		StandardResponse standardResponse = new StandardResponse(StandardResponse.EstadoStandardResponse.ERROR,
+		StandardResponse standardResponse = new StandardResponse(StandardResponse.StatusStandardResponse.ERROR,
 				"Error en la autenticación: "+"Usuario no autenticado o el token expiro " + e.getMessage());
 		response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
 		response.setContentType("application/json");

@@ -1,6 +1,8 @@
 package com.inerxia.saletrackingapi.dto;
 
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class UserDto {
 
 	private Integer id;
@@ -11,6 +13,7 @@ public class UserDto {
 
 	private String lastName;
 
+	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
 	private Integer roleId;
@@ -71,5 +74,18 @@ public class UserDto {
 
 	public void setRoleDtoFk(RoleDto roleDtoFk) {
 		this.roleDtoFk = roleDtoFk;
+	}
+
+	@Override
+	public String toString() {
+		return "UserDto{" +
+				"id=" + id +
+				", email='" + email + '\'' +
+				", firstName='" + firstName + '\'' +
+				", lastName='" + lastName + '\'' +
+				", password='" + password + '\'' +
+				", roleId=" + roleId +
+				", roleDtoFk=" + roleDtoFk +
+				'}';
 	}
 }

@@ -3,7 +3,7 @@ package com.inerxia.saletrackingapi.config;
 
 
 import com.inerxia.saletrackingapi.config.jwt2.JwtAuthenticationEntryPoint;
-import com.inerxia.saletrackingapi.config.jwt2.JwtFiltroAutenticacion;
+import com.inerxia.saletrackingapi.config.jwt2.JwtAuthenticationFilter;
 import com.inerxia.saletrackingapi.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -12,9 +12,9 @@ import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.BeanIds;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -24,7 +24,11 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 
 @Configuration
-@EnableWebSecurity
+@EnableGlobalMethodSecurity(
+		prePostEnabled = true,
+		securedEnabled = true,
+		jsr250Enabled = true
+)
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	private static final String[] AUTH_LIST = {
@@ -48,8 +52,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	}
 
 	@Bean
-	public JwtFiltroAutenticacion jwtFiltroAutenticacion() {
-		return new JwtFiltroAutenticacion();
+	public JwtAuthenticationFilter jwtFiltroAutenticacion() {
+		return new JwtAuthenticationFilter();
 	}
 
 	@Bean
@@ -62,10 +66,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http
 				.authorizeRequests().antMatchers(HttpMethod.GET, AUTH_LIST).permitAll()
-				.antMatchers(HttpMethod.POST, "/user/auth/**").permitAll()
+				.antMatchers(HttpMethod.POST, "/user/singin/**").permitAll()
 				.antMatchers(HttpMethod.POST, "/user/customer/**").permitAll()
 				.antMatchers("/").permitAll()
-				.anyRequest().permitAll().and()
+				.anyRequest().permitAll().and()//anyRequest().authenticated().and()
 				.addFilterBefore(corsFilter, ChannelProcessingFilter.class)
 				.addFilterBefore(jwtFiltroAutenticacion(), UsernamePasswordAuthenticationFilter.class)
 				.csrf().disable()

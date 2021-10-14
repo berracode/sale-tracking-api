@@ -1,32 +1,41 @@
 package com.inerxia.saletrackingapi.util;
 
-public class StandardResponse<T> {
+import com.fasterxml.jackson.annotation.JsonAlias;
 
-    private int status;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
+public class StandardResponse<T> {
+    public static final String FORMTATO_FECHA_HORA = "dd/MM/yyyy HH:mm:ss";
+    private String status;
     private String message;
+    private String dateTime;
     private T body;
 
-    public StandardResponse(EstadoStandardResponse status, T body){
-        this.status = status.getEstado();
+    public StandardResponse(StatusStandardResponse status, T body){
+        this.status = status.getStatus();
+        this.dateTime = new SimpleDateFormat(FORMTATO_FECHA_HORA).format(Calendar.getInstance().getTime());
         this.body = body;
     }
 
-    public StandardResponse(EstadoStandardResponse status, String message){
-        this.status = status.getEstado();
+    public StandardResponse(StatusStandardResponse status, String message){
+        this.status = status.getStatus();
+        this.dateTime = new SimpleDateFormat(FORMTATO_FECHA_HORA).format(Calendar.getInstance().getTime());
         this.message = message;
     }
 
-    public StandardResponse(EstadoStandardResponse status, String message, T body){
-        this.status = status.getEstado();
+    public StandardResponse(StatusStandardResponse status, String message, T body){
+        this.status = status.getStatus();
+        this.dateTime = new SimpleDateFormat(FORMTATO_FECHA_HORA).format(Calendar.getInstance().getTime());
         this.message = message;
         this.body = body;
     }
 
-    public int getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(int status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 
@@ -47,18 +56,26 @@ public class StandardResponse<T> {
         this.body = body;
     }
 
-    public enum EstadoStandardResponse{
-        OK(1),
-        ERROR(0);
+    public String getDateTime() {
+        return dateTime;
+    }
 
-        private int estado;
+    public void setDateTime(String dateTime) {
+        this.dateTime = dateTime;
+    }
 
-        EstadoStandardResponse(int estado){
-            this.estado = estado;
+    public enum StatusStandardResponse {
+        OK("CORRECT_TRANSACTION"),
+        ERROR("INCORRECT_TRANSACTION");
+
+        private String status;
+
+        StatusStandardResponse(String status){
+            this.status = status;
         }
 
-        public int getEstado(){
-            return estado;
+        public String getStatus(){
+            return status;
         }
     }
 
