@@ -37,7 +37,34 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
     }
 
     @ExceptionHandler(InsufficientStockException.class)
-    public final ResponseEntity<StandardResponse> handleDataNotFound(HttpServletRequest request, InsufficientStockException ex){
+    public final ResponseEntity<StandardResponse> handleInsufficientStockException(HttpServletRequest request, InsufficientStockException ex){
+        logger.error(request.getRequestURL().toString(), ex);
+        return new ResponseEntity<>(new StandardResponse(
+                StandardResponse.StatusStandardResponse.ERROR,
+                ex.getMessage()),
+                HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(UserNotEnabledLoginException.class)
+    public final ResponseEntity<StandardResponse> handleUserNotEnabledLoginException(HttpServletRequest request, UserNotEnabledLoginException ex){
+        logger.error(request.getRequestURL().toString(), ex);
+        return new ResponseEntity<>(new StandardResponse(
+                StandardResponse.StatusStandardResponse.ERROR,
+                ex.getMessage()),
+                HttpStatus.FORBIDDEN);
+    }
+
+    @ExceptionHandler(DataDuplicatedException.class)
+    public final ResponseEntity<StandardResponse> handleDataDuplicated(HttpServletRequest request, DataDuplicatedException ex){
+        logger.error(request.getRequestURL().toString(), ex);
+        return new ResponseEntity<>(new StandardResponse(
+                StandardResponse.StatusStandardResponse.ERROR,
+                ex.getMessage()),
+                HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(InvalidRoleUserException.class)
+    public final ResponseEntity<StandardResponse> handleInvalidRoleUserException(HttpServletRequest request, InvalidRoleUserException ex){
         logger.error(request.getRequestURL().toString(), ex);
         return new ResponseEntity<>(new StandardResponse(
                 StandardResponse.StatusStandardResponse.ERROR,
