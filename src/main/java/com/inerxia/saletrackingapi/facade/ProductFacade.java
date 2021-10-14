@@ -71,7 +71,7 @@ public class ProductFacade {
     public ProductWrapperDto editProduct(ProductWrapperDto productWrapperDto){
 
         Provider providerEdit = providerService.findById(productWrapperDto.getProviderId());
-        Product productEdit = productService.findById(productWrapperDto.getId());
+        Product productEdit = productService.findById(productWrapperDto.getProductId());
 
         productEdit.setCode(productWrapperDto.getCode());
         productEdit.setName(productWrapperDto.getName());
@@ -81,6 +81,7 @@ public class ProductFacade {
 
 
         ProviderProducts providerProducts = new ProviderProducts();
+        providerProducts.setId(productWrapperDto.getProviderProductId());
         providerProducts.setProductId(productEdit.getId());
         providerProducts.setProviderId(providerEdit.getId());
 
