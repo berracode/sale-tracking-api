@@ -1,6 +1,5 @@
 package com.inerxia.saletrackingapi.controller;
 
-import com.inerxia.saletrackingapi.dto.ProductWrapperDto;
 import com.inerxia.saletrackingapi.dto.ProviderDto;
 import com.inerxia.saletrackingapi.facade.ProviderFacade;
 import com.inerxia.saletrackingapi.util.StandardResponse;
@@ -58,7 +57,7 @@ public class ProviderController {
             @ApiResponse(code = 400, message = "La petición es inválida"),
             @ApiResponse(code = 500, message = "Error del servidor al procesar la respuesta"),
     })
-    public ResponseEntity<StandardResponse<ProviderDto>> createProduct(
+    public ResponseEntity<StandardResponse<ProviderDto>> createProvider(
             @Valid @RequestBody ProviderDto providerDto){
         ProviderDto providerDto1 = providerFacade.createProvider(providerDto);
         return ResponseEntity.ok(new StandardResponse<>(
@@ -74,7 +73,7 @@ public class ProviderController {
             @ApiResponse(code = 400, message = "La petición es inválida"),
             @ApiResponse(code = 500, message = "Error del servidor al procesar la respuesta"),
     })
-    public ResponseEntity<StandardResponse<ProviderDto>> editarServicio(
+    public ResponseEntity<StandardResponse<ProviderDto>> editProvider(
             @Valid @RequestBody ProviderDto providerDto){
         ProviderDto providerDto1 = providerFacade.editProvider(providerDto);
         return ResponseEntity.ok(new StandardResponse<>(
@@ -97,6 +96,21 @@ public class ProviderController {
         return ResponseEntity.ok(new StandardResponse<>(
                 StandardResponse.StatusStandardResponse.OK,
                 providerDtoList));
+    }
+
+    @DeleteMapping({"/delete",})
+    @ApiOperation(value = "Delete provider by id", response = String.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "La petición fue procesada con éxito"),
+            @ApiResponse(code = 400, message = "La petición es inválida"),
+            @ApiResponse(code = 500, message = "Error del servidor al procesar la respuesta"),
+    })
+    public ResponseEntity<StandardResponse<String>> deleteProvider(
+            @RequestParam(name = "providerId")  Integer providerId){
+
+        providerFacade.deleteProvider(providerId);
+        return ResponseEntity.accepted().body(new StandardResponse<>(StandardResponse.StatusStandardResponse.OK,"delete.product.ok"));
+
     }
 
 }

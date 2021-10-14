@@ -4,6 +4,7 @@ import com.inerxia.saletrackingapi.dto.ProductWrapperDto;
 import com.inerxia.saletrackingapi.exception.DataConstraintViolationException;
 import com.inerxia.saletrackingapi.exception.DataNotFoundException;
 import com.inerxia.saletrackingapi.exception.ObjectNoEncontradoException;
+import com.inerxia.saletrackingapi.model.Product;
 import com.inerxia.saletrackingapi.model.Provider;
 import com.inerxia.saletrackingapi.model.ProviderRepository;
 import org.hibernate.ObjectNotFoundException;
@@ -79,6 +80,18 @@ public class ProviderService {
         providerTx.setNit(provider.getNit());
 
         return providerTx;
+    }
+
+    public void deleteProvider(Integer id){
+        if(Objects.nonNull(id)){
+            Optional<Provider> providerOptional = providerRepository.findById(id);
+            if(!providerOptional.isPresent()){
+                throw new DataNotFoundException("exception.data_not_found.provider");
+            }
+        }
+
+        providerRepository.deleteById(id);
+
     }
 
 }

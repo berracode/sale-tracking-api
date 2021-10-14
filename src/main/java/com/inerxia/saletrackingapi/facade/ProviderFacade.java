@@ -48,6 +48,11 @@ public class ProviderFacade {
 
     }
 
+    public void deleteProvider(Integer id){
+        providerService.deleteProvider(id);
+    }
+
+
 
 
 

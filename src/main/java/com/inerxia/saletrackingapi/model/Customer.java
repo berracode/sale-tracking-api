@@ -26,7 +26,7 @@ public class Customer {
     @Column(name = "user_id")
     private String userId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name="user_id", insertable = false, updatable = false, nullable = false)
     private User user;
 
