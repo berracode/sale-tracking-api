@@ -1,12 +1,11 @@
 package com.inerxia.saletrackingapi.facade;
 
-import com.inerxia.saletrackingapi.dto.InvoiceDto;
-import com.inerxia.saletrackingapi.dto.InvoiceProductsDto;
-import com.inerxia.saletrackingapi.dto.InvoiceProductsWrapperDto;
-import com.inerxia.saletrackingapi.dto.InvoiceWrapperDto;
+import com.inerxia.saletrackingapi.dto.*;
+import com.inerxia.saletrackingapi.exception.InsufficientStockException;
 import com.inerxia.saletrackingapi.mapper.InvoiceMapper;
 import com.inerxia.saletrackingapi.mapper.InvoiceProductsMapper;
 import com.inerxia.saletrackingapi.mapper.ProductMapper;
+import com.inerxia.saletrackingapi.model.Product;
 import com.inerxia.saletrackingapi.service.InvoiceProductsService;
 import com.inerxia.saletrackingapi.service.InvoiceService;
 import com.inerxia.saletrackingapi.service.ProductService;
@@ -40,8 +39,20 @@ public class InvoiceFacade {
     private void validatedProducts(List<InvoiceProductsWrapperDto> invoiceProductsDtoList){
 
         for (InvoiceProductsWrapperDto invoiceProductsWrapperDto:invoiceProductsDtoList) {
-            productService.findById(invoiceProductsWrapperDto.getProductId());
+           ProductDto productDto = productMapper.toDto(productService.findById(invoiceProductsWrapperDto.getProductId()));
+            if(isInsufficientStock((int) productDto.getStock(), invoiceProductsWrapperDto.getQuantity())){
+                throw new InsufficientStockException("Some products do not have enough stock, check your purchase.");
+            }
         }
+
+    }
+
+    private boolean isInsufficientStock(Integer currentStock, Integer quantityToBuy){
+
+        if((currentStock-quantityToBuy)<0){
+            return true;
+        }
+        return false;
 
     }
 
@@ -71,6 +82,8 @@ public class InvoiceFacade {
             invoiceProductsDto.setTimestamp(invoiceProductsWrapperDto.getTimestamp());
 
             invoiceProductsDto = invoiceProductsMapper.toDto(invoiceProductsService.createInvoiceProducts(invoiceProductsMapper.toEntity(invoiceProductsDto)));
+            //TODO decrementar cantidad de stock al producto
+            decreaseStock(invoiceProductsDto.getProductId(),invoiceProductsDto.getQuantity());
             System.out.println("invoiceProductsDto :::"+invoiceProductsDto.getInvoiceId()+" / "+invoiceProductsDto.getId());
 
             invoiceProductsWrapperDto.setId(invoiceProductsDto.getId());
@@ -80,6 +93,15 @@ public class InvoiceFacade {
         invoiceWrapperDto.setInvoiceProductsWrapperDtoList(invoiceProductsWrapperDtoList);
 
         return invoiceWrapperDto;
+
+    }
+
+    //TODO realizar validación de stock insuficiente
+    //la estrategia es hacer una clase o solo un metodo que valide esto y una excepción personalizada.
+    private void decreaseStock(Integer id, Integer quantity){
+        Product product = productService.findById(id);
+        product.setStock(product.getStock()-quantity);
+        productService.editProduct(product);
 
     }
 
