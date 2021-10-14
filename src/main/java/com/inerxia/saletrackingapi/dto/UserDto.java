@@ -3,17 +3,22 @@ package com.inerxia.saletrackingapi.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+
 public class UserDto {
 
 	private Integer id;
-	
+
+	@Email
 	private String email;
-	
+
 	private String firstName;
 
 	private String lastName;
 
 	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+	@NotBlank
     private String password;
 
 	private Integer roleId;

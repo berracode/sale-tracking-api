@@ -1,34 +1,22 @@
-package com.inerxia.saletrackingapi.model;
+package com.inerxia.saletrackingapi.dto;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
 
-import javax.persistence.*;
+public class UserSingUpDto {
 
-@Entity
-@Table(name = "employee")
-public class Employee {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
-    @Column(name = "identification")
+    @NotBlank
     private String identification;
 
-    @Column(name = "name")
+    @NotBlank
     private String name;
-
-    @Column(name = "address")
     private String address;
-
-    @Column(name = "phone")
     private String phone;
+    private String userId;
 
-    @Column(name = "user_id")
-    private Integer userId;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="user_id", insertable = false, updatable = false, nullable = false)
-    private User user;
+    @Valid
+    private UserDto userDto;
 
     public Integer getId() {
         return id;
@@ -70,19 +58,19 @@ public class Employee {
         this.phone = phone;
     }
 
-    public Integer getUserId() {
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(Integer userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 
-    public User getUser() {
-        return user;
+    public UserDto getUserDto() {
+        return userDto;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUserDto(UserDto userDto) {
+        this.userDto = userDto;
     }
 }

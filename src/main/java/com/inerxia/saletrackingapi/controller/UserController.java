@@ -76,18 +76,7 @@ public class UserController {
     }
 
 
-    @Secured({"ROLE_ADMIN"})
-    @PostMapping("/employee/singup")
-    @ApiOperation(value = "Singup user", response = UserDto.class)
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "La petición fue procesada con éxito"),
-            @ApiResponse(code = 400, message = "La petición es inválida"),
-            @ApiResponse(code = 500, message = "Error del servidor al procesar la respuesta"),
-    })
-    public  String createEmployee(@Valid @RequestBody UserDto userDto){
 
-       return "Creating employee ResponseEntity<StandardResponse<UserDto>>";
-    }
 
 
 }
